@@ -74,6 +74,7 @@ img{
   box-shadow:inset 2px 2px 10px -5px;
   justify-content:center;
   min-height:20em;
+  color:black;
 }
 .feature:hover {
   box-shadow:inset 2px 2px 50px -15px;
@@ -82,7 +83,6 @@ img{
   margin:1em;
   padding:15px;
   order: 1;
-  color:black;
 }
 .feature-script{
   font-family: "Roboto Condensed",serif;
@@ -92,6 +92,41 @@ img{
 }
 .writer{
   background: url("img/writer.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.chuck{
+  background: url("img/chuck.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.wikia{
+  background: url("img/wiki.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.gears{
+  background: url("img/gears.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.phandelver{
+  background: url("img/phandelver.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.twitch{
+  background: url("img/twitch.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
