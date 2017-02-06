@@ -6,7 +6,7 @@ $.ajax({
     dataType: "jsonp",
     success: function (data) {
       $(".blog-items").html("");
-      for (i=0;i<5;i++){
+      for (i=0;i<4;i++){
         banksy(data["response"]["posts"][i]["title"],data["response"]["posts"][i]["body"].substring(0,800)+'...<br>Read it on Tumblr',data["response"]["posts"][i]["short_url"],data["response"]["posts"][i]["date"]);
       }
     },error: function (){
