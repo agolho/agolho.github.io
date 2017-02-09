@@ -146,6 +146,13 @@ img{
   -o-background-size: cover;
   background-size: cover;
 }
+.meteorVoid{
+  background: url("img/meteorvoid.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 .fcc{
   background: url("img/fcc.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
