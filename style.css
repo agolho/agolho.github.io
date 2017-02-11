@@ -113,6 +113,13 @@ img{
   -o-background-size: cover;
   background-size: cover;
 }
+.pomodoro{
+  background: url("img/pomodoro.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 .chuck{
   background: url("img/chuck.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
