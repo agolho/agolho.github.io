@@ -120,6 +120,13 @@ img{
   -o-background-size: auto 100%;
   background-size: auto 100%;
 }
+.simon{
+  background: url("img/simon.jpg") no-repeat center center fixed;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+}
 .ttt{
   background: url("img/ttt.jpg") no-repeat center center fixed;
   -webkit-background-size: auto 100%;
