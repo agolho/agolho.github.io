@@ -82,10 +82,18 @@ img{
   color:black;
 }
 .feature:hover {
-  box-shadow:inset 2px 2px 50px -15px;
+  box-shadow:inset 2px 2px 50px -15px ;
+}
+.double {
+  flex-basis:70em;
 }
 .grower{
   flex-grow: 1;
+}
+.pullup {
+  -ms-transform: translate(0, -4em); /* IE 9 */
+  -webkit-transform: translate(0, -4em); /* Safari */
+  transform: translate(0, -4em);
 }
 .flex-item{
   margin:1em;
@@ -98,6 +106,19 @@ img{
   text-align: justify;
   padding:1em;
   max-width: 25em;
+}
+.deathmatch {
+  background: url("img/deathmatch.jpg") no-repeat center center fixed;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+  color: white;
+  text-align: center;
+}
+.deathmatch:hover {
+  cursor: pointer;
+  box-shadow:inset 2px 2px 50px -15px white;
 }
 .writer{
   background: url("img/writer.jpg") no-repeat center center fixed;

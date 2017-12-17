@@ -9,7 +9,7 @@ $.ajax({
         banksy(data["response"]["posts"][i]["title"],data["response"]["posts"][i]["body"].substring(0,800)+'...<br>Read it on Tumblr',data["response"]["posts"][i]["short_url"],data["response"]["posts"][i]["date"]);
       }
     },error: function (){
-      console.log("shame");
+      console.log("Tumblr is not playing well again, check back soon.");
       $(".blog-items").html('<div class="flex-item post-content">Blog is not feeling well, I am substituting for them.<p>Send Complaints to <a href="https://twitter.com/ysfbekts">@ysfbekts</a>.</p></div>');
     },
     xhrFields: {
@@ -19,3 +19,7 @@ $.ajax({
 function banksy(title,post,url,date){
  $(".blog-items").append('<a href="'+url+'"><div class="flex-item"><h3>'+title+'</h3><div class="post-content"><p>'+post+'</p><p class="post-date">'+date+'</p></div></div></a>');
 }
+
+$( "#deathmatch" ).click(function() {
+  window.location.href = 'deathmatch';
+});
