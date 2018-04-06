@@ -141,6 +141,13 @@ img{
   -o-background-size: auto 100%;
   background-size: auto 100%;
 }
+.badminton{
+  background: url("img/badminton.jpg") no-repeat center center fixed;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+}
 .exercise{
   background: url("img/exercise.jpg") no-repeat center center fixed;
   -webkit-background-size: auto 100%;
