@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Letter Generator</title>
+  <script>
+    function generateRandomLetter() {
+      // Generate a random number between 0 and 25
+      var randomIndex = Math.floor(Math.random() * 26);
+      
+      // Get the corresponding letter from the alphabet
+      var letter = String.fromCharCode(65 + randomIndex);
+      
+      // Display the generated letter on the page
+      document.getElementById('letterDisplay').textContent = letter;
+    }
+  </script>
+</head>
+<body>
+  <h1>Random Letter Generator</h1>
+  <button onclick="generateRandomLetter()">Generate Letter</button>
+  <p>Generated Letter: <span id="letterDisplay"></span></p>
+</body>
+</html>
