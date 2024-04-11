@@ -8,6 +8,8 @@ p {
 }
 body {
   margin-top:2em;
+  background-color: #23234b;
+  color: white;
 }
 header{
   max-width: 70em;
@@ -16,11 +18,12 @@ header{
     border-bottom: 1px solid #ccc;
 }
 a{
-  color:black;
+  color:white;
   font-family: "Arimo",sans-serif;
 }
 a:hover {
   text-decoration: none;
+  color: white;
 }
 .playfair{
   font-family: "Playfair Display SC",serif;
@@ -51,6 +54,7 @@ img{
 }
 .twt{
   margin:3em;
+  color: white;
 }
 .post-date {
   color:lightgray;
@@ -84,6 +88,38 @@ img{
 .feature:hover {
   box-shadow:inset 2px 2px 50px -15px ;
 }
+.headline-feature{
+  /*max-width: 35em;*/
+  flex-basis:30em;
+  display: flex;
+  flex-flow: column wrap;
+  align-self: center;
+  flex-grow: 0;
+  background-color: #1a1938;
+  justify-content:center;
+  min-height:20em;
+  margin: 2em;
+}
+.headline-feature p{
+  font-family: "Oswald", sans-serif;
+  font-size: large;
+}
+.headline-feature h2{
+}
+
+.headline-feature-detail{
+  /*max-width: 35em;*/
+  flex-basis:30em;
+  display: flex;
+  flex-flow: column wrap;
+  align-self: center;
+  flex-grow: 0;
+  justify-content:center;
+  min-height:20em;
+  margin: 2em;
+
+}
+
 .double {
   flex-basis:70em;
 }
@@ -99,6 +135,19 @@ img{
   margin:1em;
   padding:15px;
   order: 1;
+}
+.icon{
+  margin: 0.5em;
+  padding: 0.5em;
+  flex-basis: 10em;
+  max-width: 512px;
+}
+.icon img{
+  border-radius: 15px;
+  box-shadow: rgba(129, 127, 127, 0.34) 2px 5px 5px;
+}
+.icon img:hover{
+  box-shadow: rgb(255, 255, 255) 2px 5px 25px;
 }
 .feature-script{
   font-family: "Roboto Condensed",serif;

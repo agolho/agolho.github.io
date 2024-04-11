@@ -1,0 +1,167 @@
+$phone-white: url('https://imgur.com/ZPjY6u3.png');
+$phone-dark: url('https://imgur.com/dwR0PUt.png');
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+.section {
+  background: #000;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+	.phone {
+    z-index: 1;
+    //background: url('https://imgur.com/kzhhjjK.png') 50% 50% no-repeat fixed;
+    background-size: 300px;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0, auto, auto, 0);
+    
+    .video {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 100vh;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+		 padding: 10px;
+
+		 .video-content {
+			 background: white;
+			 width: 262px;
+			 height: 570px;
+			 color: black;
+			 display: flex;
+			 align-items: center;
+			 justify-content: center;
+			 border-radius: 25px;
+			 position: relative;
+			 overflow: hidden;
+			 background: #000;
+			 color: #fff;
+			 video {
+				 position: absolute;
+				 top: 0;
+				 bottom: 0;
+				 right: 0;
+				 left: 0;
+				 height: 100%;
+				 width: 100%;
+				 z-index: 999999999;
+				 background: black;
+			 }
+		 }
+      &::after {
+        content: '';
+        background: $phone-white center center no-repeat;
+        background-size: 300px;
+        position: absolute;
+        width: 300px;
+        height: 600px;
+  
+      }
+     
+    }
+  }
+  
+  
+  
+  
+  
+  &:nth-child(1) {
+    background: #ffb4ac;
+      
+      .phone {
+
+      
+        
+        .video {
+       
+        }
+  }
+  }
+  
+   &:nth-child(2) {
+    background: #679186;
+     
+        .phone {
+  
+          
+           .video {
+
+            
+        }
+  }
+  }
+  
+   &:nth-child(3) {
+    background: #264e70;
+  
+        .phone {
+
+          
+           .video {
+
+        }
+  }
+  }
+  
+   &:nth-child(4) {
+    background: #ffebd3;
+    
+        .phone {
+ 
+          .video {
+    
+        }
+          
+  }
+  }
+  
+   &:nth-child(5) {
+    background: #182952;
+   
+        .phone {
+       
+          
+            .video {
+
+        }
+  }
+  }
+  
+  
+   &:nth-child(even) {
+      .phone {
+        .video {
+          &::after {
+            background-image: $phone-dark;
+          }
+        }
+      }
+   }
+  
+  &:nth-child(odd) {
+      .phone {
+        .video {
+          &::after {
+            background-image: $phone-white;
+          }
+        }
+      }
+   }
+}

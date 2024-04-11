@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            height: 60em;
+            padding-top: 50em; /* 16:9 aspect ratio (height: 9/16 = 56.25%) */
+            background: url("../img/seesaw2.png");
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90%;
+            height: 95%;
+            padding: 2em;
+            object-fit: cover;
+        }
+        body{
+            margin: 2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Info about yourself -->
+            <h2>About Me</h2>
+            <p>Add your information here...</p>
+        </div>
+        <div class="col-md-6">
+            <!-- Phone frame -->
+            <div class="video-container">
+                <video autoplay muted loop playsinline poster="../img/alphabet2.png" preload="none" data-src="../video/collage.mp4">
+                    <!-- Include a poster image for the video -->
+                    <source src="../video/collage.mp4" type="video/mp4">
+                    <!-- Include other video formats here if necessary -->
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Lazy load video when in view
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+
+        if ("IntersectionObserver" in window) {
+            var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var video = entry.target;
+                        video.src = video.dataset.src;
+                        video.load();
+                        video.classList.remove("lazy");
+                        lazyVideoObserver.unobserve(video);
+                    }
+                });
+            });
+
+            lazyVideos.forEach(function(video) {
+                lazyVideoObserver.observe(video);
+            });
+        }
+    });
+</script>
+</body>
+</html>
