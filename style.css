@@ -57,7 +57,7 @@ img{
   font-size: small;
 }
 .post-tags {
-  color:gray;
+  color:grey;
   font-size: small;
 }
 .flex-container{
@@ -107,6 +107,35 @@ img{
   padding:1em;
   max-width: 25em;
 }
+.feature h2{
+  color: white;
+  text-shadow: #030303 2px 4px 6px;
+}
+
+.collage{
+  width: 100% !important;
+  height: 42em;
+  position: relative;
+  flex-basis:70em;
+  display: flex;
+  flex-flow: column wrap;
+  align-self: flex-start;
+  flex-grow: 0;
+
+
+  justify-content:center;
+  min-height:20em;
+  color:black;
+}
+.collage video{
+  width: 100%;
+  height: 100%;
+  margin-left: -1em;
+  position: absolute;
+  object-fit: cover;
+  z-index: 0;
+}
+
 .deathmatch {
   background: url("img/deathmatch.jpg") no-repeat center center fixed;
   -webkit-background-size: auto 100%;
@@ -120,13 +149,58 @@ img{
   cursor: pointer;
   box-shadow:inset 2px 2px 50px -15px white;
 }
-.writer{
-  background: url("img/writer.jpg") no-repeat center center fixed;
+.dragon{
+  background: url("img/dragon2.png")  center fixed;
+  width: 35em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
   background-size: auto 100%;
 }
+.alphabet{
+  background: url("img/alphabet2.png") center center fixed;
+  width: 35em;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+}
+.guitar{
+  background: url("img/guitar2.png")center center fixed;
+  width: 35em;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+}
+.seesaw{
+  background: url("img/seesaw2.png")  center center fixed;
+  width: 35em;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+}
+
+.bricks{
+  background: url("img/bnb.png")center center fixed;
+  width: 35em;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+}
+
+.printer{
+  background: url("img/printer2.png")  center center fixed;
+  width: 35em;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
+}
+
+
 .calculator{
   background: url("img/calculator.jpg") no-repeat center center fixed;
   -webkit-background-size: auto 100%;
@@ -245,4 +319,50 @@ img{
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
   background-size: auto 100%;
+}
+/* Style for the lightbox container */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+/* Style for the lightbox content */
+.lightbox-content {
+  position: absolute;
+  width: 45em;
+  height: 80em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0);
+  padding: 20px;
+  border-radius: 8px;
+
+}
+
+/* Style for the close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+}
+
+/* Style for the iframe */
+#video-frame {
+  width: 100%;
+  height: 100%;
+}
+
+/* Hide scrollbar when the lightbox is open */
+body.lightbox-open {
+  overflow: hidden;
 }

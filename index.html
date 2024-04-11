@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>Yusuf: Dev Blog</title>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <title>Yusuf: Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link href="style.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
 </head>
 <body>
   <section id="head">
@@ -15,66 +16,80 @@
     <div class="row">
       <div class="brand">
         <h1 class="bottom">Yusuf Bektaş</h1>
+        <h6>Portfolio Showcase</h6>
       </div>
     </div>
   </div>
   </section>
+
+  <div id="video-lightbox" class="lightbox">
+    <div class="lightbox-content">
+      <span class="close-button">&times;</span>
+      <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
   <section id="body">
 
     <div class="row">
-      <div class="flex-container "><a href="https://agolho.github.io/WritingPrompter/">
-        <div class="flex-item feature writer">
-          <h2 class="oswald">Write Something</h2>
-          <p class="feature-script">Writing block struck you down? I may be able to help, with this webapp you can browse prompts that'll move you, and write them using arbitrary oblique strategies. FUN!</p>
-        </div></a><a href="https://play.google.com/store/apps/details?id=com.lightwhite.meteorvoid">
-        <div class="flex-item feature meteorVoid">
-          <h2 class="oswald">Meteor Void</h2>
-          <p class="feature-script">A mobile game made with Unity 3D. One handed play and upgrades, this game got it all.</p>
-        </div></a><a href="https://agolho.github.io/Playground/pomodoro/">
-        <div class="flex-item feature pomodoro">
-          <h2 class="oswald">Tomato Timer</h2>
-          <p class="feature-script">Tomato timer is a study technique developed by an Italian student at the time. Simple formula (25 + 5) x 4.</p>
-        </div></a><a href="playground.html">
-        <div class="flex-item feature fcc">
-          <h2 class="oswald">Playground</h2>
-          <p class="feature-script">
-            Home to various wacky javascript projects, these projects couldn't get their own headline but they're worth exploring. Personally, suggest you to check out Gears-Machines-Guns.
-          </p>
-        </div></a>
+      <div class="flex-container ">
+
+      <div class="flex-item collage">
+        <video autoplay muted loop>
+          <source src="video/collage.mp4" type="video/mp4" />
+        </video>
       </div>
-    </div>
+      </div>
+      </div>
     <div class="row">
-      <div class="flex-container pullup" id="deathmatch">
-        <div class="flex-item feature double deathmatch">
-          <h2 class="oswald">The Deathmatch: Episode One</h2>
-        </div>
+
+      <div class="flex-container ">
+
+        <a class="lightbox-trigger" data-video="video/dragonActionMaster.mp4" href="#">
+        <div class="flex-item feature dragon">
+          <h2 class="oswald">Dragon Action Master</h2>
+        </div></a>
+
+        <a class="lightbox-trigger" data-video="video/alphabetRush.mp4" href="#">
+        <div class="flex-item feature alphabet">
+          <h2 class="oswald">Alphabet Rush</h2>
+        </div></a>
+
+        <a class="lightbox-trigger" data-video="video/guitarRush.mp4" href="#">
+        <div class="flex-item feature guitar">
+          <h2 class="oswald">Guitar Rush</h2>
+        </div></a>
+
+        <a class="lightbox-trigger" data-video="video/SeesawIdle.mp4" href="#">
+        <div class="flex-item feature seesaw">
+          <h2 class="oswald">Seesaw Idle</h2>
+        </div></a>
+
+        <a class="lightbox-trigger" data-video="video/bricksAndBullets.mp4" href="#">
+          <div class="flex-item feature bricks">
+            <h2 class="oswald">Bricks and Bullets</h2>
+          </div></a>
+
+        <a class="lightbox-trigger" data-video="video/PrinterIdle3D.mp4" href="#">
+          <div class="flex-item feature printer">
+            <h2 class="oswald">Printer Idle 3D</h2>
+          </div></a>
+
       </div>
     </div>
-  </section>
-  <section id="blog">
-    <div class="container">
-      <div class="blog-title">
-        <h2 class="playfair bottom">Blog</h2>
-      </div>
-    </div>
-    <div class="flex-container blog-items">
 
-        <!--Here Goes the Tumblr -->
-
-    </div>
   </section>
+
   <section id="footer">
     <div class="container contact">
       <h2 class="playfair bottom">Contact</h2>
       <div class="row">
-        <div class="col-sm-4">
-          <a class="text-center twt" href="https://twitter.com/ysfbekts"><h3><i class="fa fa-twitter"></i> ysfbekts</h3></a>
+        <div class="col-sm-6">
+          <a class="text-center twt" href="https://twitter.com/ibeyube"><h3><i class="fa-brands fa-x-twitter"></i>ibeyube</h3></a>
         </div>
-        <div class="col-sm-4">
-          <a class="text-center twt" href="https://www.instagram.com/ysfbekts/"><h3><i class="fa fa-instagram"></i> ysfbekts</h3></a>
-        </div>
-        <div class="col-sm-4">
-          <a class="text-center twt" href="https://www.linkedin.com/in/yusufbektas/"><h3><i class="fa fa-linkedin"></i> ysfbekts</h3></a>
+
+        <div class="col-sm-6">
+          <a class="text-center twt" href="https://www.linkedin.com/in/yusufbektas/"><h3><i class="fa-brands fa-linkedin"></i>yusufbektas</h3></a>
         </div>
       </div>
     </div>

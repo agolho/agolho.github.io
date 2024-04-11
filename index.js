@@ -1,25 +1,31 @@
-$.ajax({
-    url: "https://api.tumblr.com/v2/blog/ysfbekts.tumblr.com/posts/text?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&notes_info=true",
-    jsonp: "callback",
-    type: "GET",
-    dataType: "jsonp",
-    success: function (data) {
-      $(".blog-items").html("");
-      for (i=0;i<4;i++){
-        banksy(data["response"]["posts"][i]["title"],data["response"]["posts"][i]["body"].substring(0,800)+'...<br>Read it on Tumblr',data["response"]["posts"][i]["short_url"],data["response"]["posts"][i]["date"]);
-      }
-    },error: function (){
-      console.log("Tumblr is not playing well again, check back soon.");
-      $(".blog-items").html('<div class="flex-item post-content">Blog is not feeling well, I am substituting for them.<p>Send Complaints to <a href="https://twitter.com/ysfbekts">@ysfbekts</a>.</p></div>');
-    },
-    xhrFields: {
-      withCredentials: false
-    }
-  });
-function banksy(title,post,url,date){
- $(".blog-items").append('<a href="'+url+'"><div class="flex-item"><h3>'+title+'</h3><div class="post-content"><p>'+post+'</p><p class="post-date">'+date+'</p></div></div></a>');
-}
+document.addEventListener("DOMContentLoaded", function() {
+    const lightboxTriggers = document.querySelectorAll(".lightbox-trigger");
+    const videoLightbox = document.getElementById("video-lightbox");
+    const closeButton = document.querySelector(".close-button");
+    const videoFrame = document.getElementById("video-frame");
 
-$( "#deathmatch" ).click(function() {
-  window.location.href = 'deathmatch';
+    lightboxTriggers.forEach(function(trigger) {
+        trigger.addEventListener("click", function(event) {
+            event.preventDefault();
+            const videoUrl = this.getAttribute("data-video");
+            videoFrame.setAttribute("src", videoUrl);
+            videoLightbox.style.display = "block";
+            document.body.classList.add("lightbox-open");
+        });
+    });
+
+    // Close the lightbox when clicking outside of the video
+    videoLightbox.addEventListener("click", function(event) {
+        if (event.target === videoLightbox) {
+            videoFrame.setAttribute("src", "");
+            videoLightbox.style.display = "none";
+            document.body.classList.remove("lightbox-open");
+        }
+    });
+
+    closeButton.addEventListener("click", function() {
+        videoFrame.setAttribute("src", "");
+        videoLightbox.style.display = "none";
+        document.body.classList.remove("lightbox-open");
+    });
 });
