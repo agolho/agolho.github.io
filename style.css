@@ -74,15 +74,16 @@ img{
 }
 .feature {
   /*max-width: 35em;*/
-  flex-basis:35em;
+  flex-basis:20em;
   display: flex;
   flex-flow: column wrap;
   align-self: flex-start;
   flex-grow: 0;
   background-color: #efefef;
   box-shadow:inset 2px 2px 10px -5px;
+  border-radius: 50px;
   justify-content:center;
-  min-height:20em;
+  min-height:15em;
   color:black;
 }
 .feature:hover {
@@ -96,13 +97,15 @@ img{
   align-self: center;
   flex-grow: 0;
   background-color: #1a1938;
+  border-radius: 50px;
+  padding: 4em;
   justify-content:center;
   min-height:20em;
   margin: 2em;
 }
 .headline-feature p{
   font-family: "Oswald", sans-serif;
-  font-size: large;
+  font-size: medium;
 }
 .headline-feature h2{
 }
@@ -171,7 +174,6 @@ img{
   align-self: flex-start;
   flex-grow: 0;
 
-
   justify-content:center;
   min-height:20em;
   color:black;
@@ -200,7 +202,7 @@ img{
 }
 .dragon{
   background: url("img/dragon2.png")  center fixed;
-  width: 35em;
+  width: 20em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
@@ -208,7 +210,7 @@ img{
 }
 .alphabet{
   background: url("img/alphabet2.png") center center fixed;
-  width: 35em;
+  width: 20em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
@@ -216,7 +218,7 @@ img{
 }
 .guitar{
   background: url("img/guitar2.png")center center fixed;
-  width: 35em;
+  width: 20em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
@@ -224,7 +226,7 @@ img{
 }
 .seesaw{
   background: url("img/seesaw2.png")  center center fixed;
-  width: 35em;
+  width: 20em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
@@ -233,7 +235,7 @@ img{
 
 .bricks{
   background: url("img/bnb.png")center center fixed;
-  width: 35em;
+  width: 20em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
@@ -242,7 +244,7 @@ img{
 
 .printer{
   background: url("img/printer2.png")  center center fixed;
-  width: 35em;
+  width: 20em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
