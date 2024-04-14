@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Portfolio</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .spinner {
+            display: none; /* Hide the spinner initially */
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="container">
+                <div class="phone">
+                    <!-- Add a loading spinner -->
+                    <div class="spinner-border text-primary spinner" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <!-- Video element with lazy loading -->
+                    <video src="../video/collage.mp4" class="vid" loop muted autoplay controls="true"></video>
+                </div>
+                <div class="device-frame"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var video = document.querySelector('.vid');
+        var spinner = document.querySelector('.spinner');
+
+        // Show spinner while video is loading
+        video.addEventListener('loadstart', function() {
+            spinner.style.display = 'block';
+        });
+
+        // Hide spinner when video is loaded
+        video.addEventListener('loadeddata', function() {
+            spinner.style.display = 'none';
+        });
+    });
+</script>
+</body>
+</html>
