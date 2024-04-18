@@ -16,9 +16,9 @@ body {
 
 .phone {
     width: 440.7px;
-    height: 780px;
-    background-size: 440.7px 780px;
-    top: 3.2em;
+    height: 675px;
+    background-size: 440.7px 675px;
+    top: 5.2em;
     background-image: url(device.png);
     background-repeat: no-repeat;
     margin-bottom: 50px; /* Adjust margin as needed */
@@ -29,9 +29,9 @@ body {
 
 .device-frame {
     width: 440.7px;
-    height: 780px;
-    background-size: 440.7px 780px;
-    top: 3.2em;
+    height: 675px;
+    background-size: 440.7px 675px;
+    top: 5.2em;
     background-image: url(deviceframe.png);
     position: fixed;
     z-index: 10000;
@@ -40,9 +40,20 @@ body {
 .vid {
     width: 21em;
     height: 70em;
-    
+
     max-width: 1000px;
-    top: -12em;
+    top: -15em;
+    display: block;
+    margin: 0 auto;
+    z-index: 0;
+    position: relative;
+}
+
+.gif{
+    width: 21em;
+    height: 38em;
+    max-width: 1000px;
+    top: 1.5em;
     display: block;
     margin: 0 auto;
     z-index: 0;
