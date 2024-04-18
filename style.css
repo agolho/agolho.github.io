@@ -201,32 +201,32 @@ img{
   box-shadow:inset 2px 2px 50px -15px white;
 }
 .dragon{
-  background: url("img/dragon2.png")  center fixed;
-  width: 20em;
+  background: url("icons/dragon.png") center center;
+  width: 15em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
   background-size: auto 100%;
 }
 .alphabet{
-  background: url("img/alphabet2.png") center center fixed;
-  width: 20em;
+  background: url("icons/alphabet.png") center center ;
+  width: 15em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
   background-size: auto 100%;
 }
 .guitar{
-  background: url("img/guitar2.png")center center fixed;
-  width: 20em;
+  background: url("icons/guitar.png")center center;
+  width: 15em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
   background-size: auto 100%;
 }
 .seesaw{
-  background: url("img/seesaw2.png")  center center fixed;
-  width: 20em;
+  background: url("icons/seesaw.png")  center center ;
+  width: 15em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
@@ -234,8 +234,8 @@ img{
 }
 
 .bricks{
-  background: url("img/bnb.png")center center fixed;
-  width: 20em;
+  background: url("icons/brick.png")center center ;
+  width: 15em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
@@ -243,8 +243,8 @@ img{
 }
 
 .printer{
-  background: url("img/printer2.png")  center center fixed;
-  width: 20em;
+  background: url("icons/printer.png")  center center ;
+  width: 15em;
   -webkit-background-size: auto 100%;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
