@@ -42,3 +42,52 @@ body {
 .motion-blur {
   filter: blur(4px);
 }
+
+/* Bonus Mode Styles */
+body.bonus-mode {
+  --background: #1a0f00;
+  /* Deep gold-brown dark background */
+  --foreground: #fff5e6;
+}
+
+body.bonus-mode section {
+  border-color: #FFD700 !important;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2) !important;
+}
+
+body.bonus-mode button {
+  background: #FFD700 !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px #FFD700 !important;
+}
+
+body.bonus-mode .text-indigo-400,
+body.bonus-mode .text-purple-400,
+body.bonus-mode .text-slate-200 {
+  color: #FFD700 !important;
+  text-shadow: 0 0 5px #FFD700;
+}
+
+body.bonus-mode .bg-slate-900\/50,
+body.bonus-mode .bg-slate-900\/40,
+body.bonus-mode .bg-slate-900\/30,
+body.bonus-mode .bg-slate-950\/50 {
+  background-color: rgba(50, 40, 0, 0.7) !important;
+  border-color: #FFA500 !important;
+}
+
+@keyframes pulse-gold {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px #FFD700;
+  }
+
+  50% {
+    box-shadow: 0 0 25px #FFD700, 0 0 10px #FFA500;
+  }
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s infinite;
+}
