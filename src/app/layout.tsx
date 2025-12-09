@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agolho | Senior Game Developer",
-  description: "Portfolio of Agolho - Senior Game & Web Developer",
+  title: "Yusuf Bektas | Senior Game Developer",
+  description: "Portfolio of Yusuf Bektas - Senior Game & Web Developer",
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>",
+  },
 };
 
 export default function RootLayout({
