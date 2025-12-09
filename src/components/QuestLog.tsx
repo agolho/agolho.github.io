@@ -14,7 +14,7 @@ export default function QuestLog() {
 
             <div className="space-y-4">
                 <QuestItem
-                    title="Baker's Calculator"
+                    title="Build Baker's Calculator"
                     desc="A precise hydration and detailed recipe calculator for bread making."
                     tags={["React", "Algorithms", "Utility"]}
                     reward="XP: 500"

@@ -43,6 +43,20 @@ body {
   filter: blur(4px);
 }
 
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 20s linear infinite;
+}
+
 /* Bonus Mode Styles */
 body.bonus-mode {
   --background: #1a0f00;
