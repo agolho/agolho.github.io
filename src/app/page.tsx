@@ -20,16 +20,16 @@ export default function Home() {
               <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
                 Senior Game Dev
               </h1>
-              <p className="text-slate-400 text-lg mt-1">Class: Technomancer | Lvl. 4+ (Years Exp)</p>
+              <p className="text-slate-400 text-lg mt-1">Class: Technomancer | Lvl. 5+ (Years Exp)</p>
             </div>
 
             <div className="text-slate-300 leading-relaxed max-w-2xl">
-              With over 4 years of professional experience in the gaming industry, I have contributed to the development of more than 40 titles across Android, iOS, and WebGL. My expertise lies in Unity3D and C#, and I am passionate about creating engaging and polished gameplay experiences.
+              With over 5 years of professional experience in the gaming industry, I have contributed to the development of over 40 projects across Android, iOS, and WebGL. My expertise lies in Unity3D and C#, and I am passionate about creating engaging and polished gameplay experiences.
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-              <StatBox label="Titles Shipped" value="40+" color="text-green-400" />
+              <StatBox label="Titles Shipped" value="4+" color="text-green-400" />
               <StatBox label="Engine" value="Unity3D" color="text-blue-400" />
               <StatBox label="Language" value="C# / TS" color="text-yellow-400" />
               <StatBox label="Specialty" value="Gameplay" color="text-red-400" />
