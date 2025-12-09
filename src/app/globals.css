@@ -1,20 +1,44 @@
 @import "tailwindcss";
 
-:root {
-  /* Slate 950 */
-  --background: #020617; 
-  /* Slate 100 */
-  --foreground: #f1f5f9;
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom Animations */
+@keyframes spin-scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-spin-scroll {
+  animation: spin-scroll 0.15s linear infinite;
+}
+
+/* Blur effect for motion */
+.motion-blur {
+  filter: blur(4px);
 }

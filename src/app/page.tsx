@@ -1,5 +1,6 @@
 import QuestLog from "@/components/QuestLog";
 import Contact from "@/components/Contact";
+import SlotMachine from "@/components/SlotMachine";
 
 export default function Home() {
   return (
@@ -37,6 +38,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <SlotMachine />
 
       {/* Skills / Inventory */}
       <section className="w-full">
