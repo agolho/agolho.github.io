@@ -4,6 +4,7 @@ import React from 'react';
 
 export default function JackpotFooter() {
     const [displayText, setDisplayText] = React.useState("0");
+    const [debugMode, setDebugMode] = React.useState(false);
     const containerRef = React.useRef<HTMLElement>(null);
     const FINAL_TEXT = "DESIGNED WITH ❤️ BY YUSUF";
     const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -85,16 +86,26 @@ export default function JackpotFooter() {
                     <div className="bg-black p-2 rounded border border-yellow-900 shadow-[inset_0_2px_10px_rgba(0,0,0,1)]">
 
                         {/* Digital Display Screen */}
-                        <div className="bg-red-950/30 border border-red-900/50 rounded flex flex-col items-center justify-center py-2 relative overflow-hidden h-16">
+                        <div className="bg-red-950/30 border border-red-900/50 rounded flex flex-col items-center justify-center py-2 relative overflow-hidden h-20">
 
                             {/* Scanlines */}
                             <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_2px,3px_100%] pointer-events-none opacity-50" />
 
-                            <div className="text-[10px] text-yellow-600 font-mono tracking-widest uppercase mb-1 z-20">Current Credits</div>
+                            <div className="text-[10px] text-yellow-600 font-mono tracking-widest uppercase z-20">Current Credits</div>
 
                             {/* Fixed Font Size: Matches final text size always */}
                             <div className="font-mono font-bold text-yellow-400 tracking-wider z-20 animate-pulse drop-shadow-[0_0_8px_rgba(250,204,21,0.5)] text-xs sm:text-sm md:text-base">
                                 {displayText}
+                            </div>
+
+                            {/* Version Info */}
+                            <div
+                                className="text-[10px] text-blue-400/30 font-mono mt-0.5 cursor-pointer z-20 select-none hover:text-blue-400/80 transition-colors"
+                                onMouseEnter={() => setDebugMode(true)}
+                                onMouseLeave={() => setDebugMode(false)}
+                                onClick={() => setDebugMode(prev => !prev)}
+                            >
+                                {debugMode ? "Build: Debug | Hash: a1b2c3d" : "v1.4.2 | Build: Production"}
                             </div>
                         </div>
                     </div>
