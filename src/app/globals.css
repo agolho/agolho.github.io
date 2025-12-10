@@ -1,18 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-outfit);
+  --font-serif: var(--font-playfair);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Luxury Gold Gradients */
+.text-gold {
+  @apply bg-clip-text text-transparent bg-gradient-to-b from-yellow-300 via-yellow-500 to-yellow-600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.bg-gold {
+  @apply bg-gradient-to-b from-yellow-400 via-yellow-500 to-yellow-600;
+}
+
+.border-gold {
+  border-image: linear-gradient(to bottom, #fde047, #eab308, #a16207) 1;
+}
+
+/* Shimmer animation for headers */
+@keyframes shimmer {
+  0% {
+    filter: brightness(100%);
+  }
+
+  50% {
+    filter: brightness(130%);
+  }
+
+  100% {
+    filter: brightness(100%);
+  }
+}
+
+.gold-shimmer {
+  animation: shimmer 4s infinite ease-in-out;
+}
+
 :root {
-  --background: #ffffff;
+  --background: transparent;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: transparent;
     --foreground: #ededed;
   }
 }
@@ -26,16 +60,34 @@ body {
 /* Custom Animations */
 @keyframes spin-scroll {
   0% {
-    transform: translateY(0);
+    transform: translateY(-33.333333%);
   }
 
   100% {
-    transform: translateY(-50%);
+    transform: translateY(0);
   }
 }
 
 .animate-spin-scroll {
   animation: spin-scroll 0.15s linear infinite;
+}
+
+.animate-spin-braking {
+  animation: spin-scroll 0.4s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Blur effect for motion */
@@ -104,4 +156,21 @@ body.bonus-mode .bg-slate-950\/50 {
 
 .animate-pulse-gold {
   animation: pulse-gold 2s infinite;
+}
+
+/* Liquid Glass Aesthetic */
+/* High Roller Liquid Glass */
+.liquid-glass {
+  background: rgba(4, 16, 8, 0.98);
+  /* Almost solid, very deep Poker Green */
+  backdrop-filter: blur(24px) saturate(110%);
+  -webkit-backdrop-filter: blur(24px) saturate(110%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  /* Defined gold rim */
+  box-shadow:
+    0 12px 40px 0 rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(255, 215, 0, 0.05),
+    inset 0 0 80px 20px rgba(0, 0, 0, 0.8);
+  /* Heavy vignette */
+  border-radius: 1rem;
 }

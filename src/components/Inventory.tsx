@@ -4,99 +4,111 @@ import React from 'react';
 
 interface SkillItem {
     name: string;
-    rarity: 'Common' | 'Rare' | 'Epic' | 'Legendary';
+    rarity: 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
     effect: string;
     flavorText: string;
     icon?: string;
+    value: string;
 }
 
 const SKILLS: SkillItem[] = [
     {
         name: "Unity3D",
-        rarity: "Legendary",
-        effect: "+150 Game Logic, Enables 3D Manipulation",
-        flavorText: "A powerful engine forged in the fires of C++.",
-        icon: "🎮"
+        rarity: "Diamond",
+        effect: "Enables 3D World Construction",
+        flavorText: "The engine that drives the industry.",
+        icon: "🎲",
+        value: "$500k"
     },
     {
         name: "C#",
-        rarity: "Legendary",
-        effect: "+50 Scripting Speed, -10 Sanity",
-        flavorText: "Ideally used with a strongly typed coffee.",
-        icon: "📝"
+        rarity: "Diamond",
+        effect: "High Performance Scripting",
+        flavorText: "Precision engineered for reliability.",
+        icon: "💎",
+        value: "$500k"
     },
     {
-        name: "React / Next.js",
-        rarity: "Epic",
-        effect: "Summons Component Trees, +40 UI Responsiveness",
-        flavorText: "It renders... and then it re-renders.",
-        icon: "⚛️"
+        name: "React",
+        rarity: "Gold",
+        effect: "Dynamic UI Creation",
+        flavorText: "The interface of the future.",
+        icon: "⚜️",
+        value: "$250k"
     },
     {
         name: "TypeScript",
-        rarity: "Epic",
-        effect: "Prevents 'Undefined is not a function' Curses",
-        flavorText: "A shield against the chaos of loose typing.",
-        icon: "🛡️"
+        rarity: "Gold",
+        effect: "Type Safety Shield",
+        flavorText: "Prevents costly errors on the floor.",
+        icon: "⚖️",
+        value: "$250k"
     },
     {
         name: "Node.js",
-        rarity: "Rare",
-        effect: "Enables Server-Side Sorcery",
-        flavorText: "JavaScript everywhere? It's more likely than you think.",
-        icon: "🟢"
+        rarity: "Silver",
+        effect: "Backend Operations",
+        flavorText: "The invisible hand moving the chips.",
+        icon: "🔗",
+        value: "$100k"
     },
     {
         name: "Git",
-        rarity: "Rare",
-        effect: "Allows Time Travel (Revert Commit)",
-        flavorText: "Remember to push before you leave the building.",
-        icon: "🌲"
+        rarity: "Silver",
+        effect: "Version Control Safety",
+        flavorText: "Insurance against catastrophic loss.",
+        icon: "🏦",
+        value: "$100k"
     },
     {
         name: "Firebase",
-        rarity: "Common",
-        effect: "Instant Backend Deployment",
-        flavorText: "Great for when you don't want to manage a server.",
-        icon: "🔥"
+        rarity: "Bronze",
+        effect: "Rapid Deployment",
+        flavorText: "Standard issue backend utility.",
+        icon: "🔥",
+        value: "$50k"
     },
     {
-        name: "Performance Optimization",
-        rarity: "Epic",
-        effect: "+60 FPS, Removes Lag Spikes",
-        flavorText: "Premature optimization is the root of all evil, but this is necessary.",
-        icon: "⚡"
+        name: "Optimization",
+        rarity: "Gold",
+        effect: "Frame Rate Boost",
+        flavorText: "Efficiency equals profit.",
+        icon: "⚡",
+        value: "$250k"
     }
 
 ];
 
-const RARITY_COLORS = {
-    Common: "border-slate-500 text-slate-300",
-    Rare: "border-blue-500 text-blue-400",
-    Epic: "border-purple-500 text-purple-400",
-    Legendary: "border-orange-500 text-orange-400"
-};
-
-const RARITY_BG = {
-    Common: "bg-slate-900/90",
-    Rare: "bg-blue-900/90",
-    Epic: "bg-purple-900/90",
-    Legendary: "bg-orange-900/90"
+const CHIP_STYLES = {
+    Bronze: "border-orange-700 text-orange-200 bg-gradient-to-br from-orange-900 to-black",
+    Silver: "border-slate-400 text-slate-100 bg-gradient-to-br from-slate-600 to-black",
+    Gold: "border-yellow-500 text-yellow-100 bg-gradient-to-br from-yellow-600 to-black shadow-[0_0_15px_rgba(234,179,8,0.3)]",
+    Diamond: "border-cyan-400 text-cyan-100 bg-gradient-to-br from-cyan-600 to-black shadow-[0_0_20px_rgba(34,211,238,0.4)]"
 };
 
 export default function Inventory() {
     const [selectedSkill, setSelectedSkill] = React.useState<SkillItem | null>(null);
 
     return (
-        <section className="w-full relative">
-            <h2 className="text-2xl font-bold text-slate-200 mb-6 flex items-center gap-2">
-                <span className="text-indigo-400">Inventory</span>
-                <span className="text-sm font-normal text-slate-500 uppercase tracking-widest">Core Competencies</span>
-            </h2>
+        <section className="w-full liquid-glass p-8 relative">
+            <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+                <div>
+                    <h2 className="text-4xl font-serif text-gold gold-shimmer mb-1">
+                        The Vault
+                    </h2>
+                    <p className="text-sm font-mono text-slate-400 uppercase tracking-widest">
+                        High Value Assets
+                    </p>
+                </div>
+                <div className="text-right hidden md:block">
+                    <div className="text-xs text-slate-500 uppercase tracking-widest">Total Valuation</div>
+                    <div className="text-xl font-mono text-green-400">$2.5M+</div>
+                </div>
+            </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {SKILLS.map((skill, i) => (
-                    <InventorySlot
+                    <ChipItem
                         key={i}
                         skill={skill}
                         onClick={() => setSelectedSkill(skill)}
@@ -104,51 +116,55 @@ export default function Inventory() {
                 ))}
             </div>
 
-            {/* Mobile/Detail Modal Overlay */}
+            {/* Modal - Safety Deposit Box View */}
             {selectedSkill && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
                     onClick={() => setSelectedSkill(null)}
                 >
                     <div
                         className={`
-                            w-full max-w-sm relative overflow-hidden rounded-xl border-2 p-1 shadow-2xl animate-in zoom-in-95 duration-200
-                            ${RARITY_COLORS[selectedSkill.rarity].split(' ')[0]} 
-                            bg-slate-900
+                            w-full max-w-sm relative overflow-hidden rounded-2xl border-2 p-1 shadow-2xl animate-in zoom-in-95 duration-200
+                            ${CHIP_STYLES[selectedSkill.rarity].split(' ')[0]} 
+                            bg-slate-950
                         `}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Modal Content matching Tooltip style but bigger */}
-                        <div className="bg-[#1a1b26] rounded-lg p-6 relative">
+                        <div className="bg-[#0f0f12] rounded-xl p-8 relative flex flex-col items-center text-center">
                             {/* Close Button */}
                             <button
                                 onClick={() => setSelectedSkill(null)}
-                                className="absolute top-2 right-2 text-slate-500 hover:text-white"
+                                className="absolute top-4 right-4 text-slate-500 hover:text-white"
                             >
                                 ✕
                             </button>
 
-                            <div className={`text-sm font-bold uppercase tracking-wider mb-2 ${RARITY_COLORS[selectedSkill.rarity].split(' ')[1]}`}>
-                                {selectedSkill.rarity} Item
+                            <div className="w-24 h-24 rounded-full border-4 border-dashed border-white/20 flex items-center justify-center text-5xl mb-6 shadow-inner bg-black/50">
+                                {selectedSkill.icon}
                             </div>
 
-                            <div className="flex items-center gap-4 mb-4 border-b border-slate-700 pb-4">
-                                <div className="text-4xl">{selectedSkill.icon}</div>
-                                <div className="text-2xl font-bold text-white">
-                                    {selectedSkill.name}
-                                </div>
+                            <div className="text-xs font-bold uppercase tracking-widest mb-2 text-slate-500">
+                                {selectedSkill.rarity} ASSET
                             </div>
 
-                            <div className="space-y-4">
+                            <h3 className="text-3xl font-serif font-bold text-white mb-2">
+                                {selectedSkill.name}
+                            </h3>
+
+                            <div className="text-gold font-mono text-xl mb-6 border-b border-white/10 pb-4 w-full">
+                                EST. VALUE: {selectedSkill.value}
+                            </div>
+
+                            <div className="space-y-4 w-full text-left">
                                 <div>
-                                    <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Effect</div>
+                                    <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Utility</div>
                                     <div className="text-green-400 font-medium">
                                         {selectedSkill.effect}
                                     </div>
                                 </div>
 
-                                <div className="bg-slate-950/50 p-3 rounded border border-slate-800">
-                                    <div className="text-sm text-slate-400 italic font-serif leading-relaxed">
+                                <div className="bg-black/40 p-4 rounded border border-white/5 mx-[-1rem]">
+                                    <div className="text-sm text-slate-300 italic font-serif leading-relaxed">
                                         "{selectedSkill.flavorText}"
                                     </div>
                                 </div>
@@ -161,53 +177,28 @@ export default function Inventory() {
     );
 }
 
-function InventorySlot({ skill, onClick }: { skill: SkillItem, onClick: () => void }) {
+function ChipItem({ skill, onClick }: { skill: SkillItem, onClick: () => void }) {
     return (
         <div
-            className="group relative"
+            className="group relative flex flex-col items-center"
             onClick={onClick}
         >
-            {/* Slot Container */}
+            {/* Poker Chip Visual */}
             <div className={`
-                h-24 md:h-32 bg-slate-900/50 border-2 rounded-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-200
-                hover:scale-105 hover:bg-slate-800 active:scale-95
-                ${RARITY_COLORS[skill.rarity].split(' ')[0]}
+                w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-dashed 
+                flex items-center justify-center cursor-pointer transition-all duration-300
+                hover:scale-110 hover:-translate-y-2 hover:rotate-3 shadow-xl
+                ${CHIP_STYLES[skill.rarity]}
             `}>
-                <div className="text-3xl md:text-4xl mb-2">{skill.icon}</div>
-                <div className="text-xs md:text-sm font-bold text-slate-200 text-center px-1">{skill.name}</div>
+                <div className="w-[85%] h-[85%] rounded-full border border-white/10 bg-black/20 flex items-center justify-center backdrop-blur-sm">
+                    <span className="text-3xl md:text-5xl drop-shadow-md filter">{skill.icon}</span>
+                </div>
             </div>
 
-            {/* RPG Tooltip - Only visible on Desktop (md+) on hover */}
-            <div className="hidden md:block absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-64 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 z-50">
-                <div className="bg-[#1a1b26] border-2 border-[#414868] rounded-lg p-3 shadow-2xl text-left relative overflow-hidden">
-                    {/* Rarity Header */}
-                    <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${RARITY_COLORS[skill.rarity].split(' ')[1]}`}>
-                        {skill.rarity} Item
-                    </div>
-
-                    {/* Name */}
-                    <div className="text-lg font-bold text-white mb-2 border-b border-slate-700 pb-1">
-                        {skill.name}
-                    </div>
-
-                    {/* Effect */}
-                    <div className="text-sm text-green-400 mb-2">
-                        {skill.effect}
-                    </div>
-
-                    {/* Flavor Text */}
-                    <div className="text-xs text-slate-500 italic font-serif">
-                        "{skill.flavorText}"
-                    </div>
-
-                    {/* Decorative Corner (Optional) */}
-                    <div className="absolute top-0 right-0 p-1">
-                        <div className={`w-2 h-2 rounded-full ${RARITY_COLORS[skill.rarity].replace('border-', 'bg-').split(' ')[0]}`} />
-                    </div>
-                </div>
-
-                {/* Tooltip Arrow */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-6px] w-3 h-3 bg-[#1a1b26] border-r-2 border-b-2 border-[#414868] rotate-45 transform" />
+            {/* Label below chip */}
+            <div className="mt-4 text-center">
+                <div className="font-serif font-bold text-slate-200 text-lg group-hover:text-gold transition-colors">{skill.name}</div>
+                <div className="font-mono text-xs text-slate-500">{skill.value}</div>
             </div>
         </div>
     );

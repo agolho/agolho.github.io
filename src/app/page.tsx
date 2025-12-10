@@ -3,43 +3,70 @@ import Contact from "@/components/Contact";
 import SlotMachine from "@/components/SlotMachine";
 import Inventory from "@/components/Inventory";
 import Ticker from "@/components/Ticker";
+import ShaderBackground from "@/components/ShaderBackground";
 
 export default function Home() {
   return (
     <main className="flex flex-col items-center w-full min-h-screen pb-24 relative overflow-x-hidden">
-
+      <ShaderBackground />
       <Ticker />
 
       <div className="w-full max-w-4xl p-6 space-y-12 flex flex-col items-center">
 
         {/* Hero / Character Card */}
-        <section className="w-full bg-slate-900/50 border border-slate-800 rounded-xl p-8 backdrop-blur-sm shadow-2xl relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <section className="w-full liquid-glass p-8 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
           <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
             {/* Avatar / Class Icon Placeholder */}
-            <div className="w-32 h-32 md:w-40 md:h-40 bg-slate-800 rounded-full border-4 border-indigo-500 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.3)] overflow-hidden relative">
-              <img src="/avatar.png" alt="Avatar" className="w-full h-full object-cover" />
+            {/* Avatar / Class Icon Placeholder */}
+            <div className="relative group">
+              {/* Spinning 'Sha Sha' Glow Ring */}
+              <div className="absolute inset-[-10px] rounded-full bg-gradient-to-tr from-yellow-400 via-yellow-200 to-yellow-600 opacity-70 blur-md animate-spin-slow group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Static Gold Rim Container */}
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full p-[4px] bg-gradient-to-b from-yellow-200 via-yellow-500 to-yellow-700 shadow-[0_0_50px_rgba(234,179,8,0.6)] relative z-10">
+                {/* Inner Dark Rim */}
+                <div className="w-full h-full rounded-full p-[4px] bg-black">
+                  {/* Dashed Chip Pattern */}
+                  <div className="w-full h-full rounded-full border-2 border-dashed border-yellow-500/50 flex items-center justify-center overflow-hidden bg-slate-900 relative">
+                    <img src="/avatarCasino.png" alt="Avatar" className="w-full h-full object-cover relative z-10 hover:scale-110 transition-transform duration-500" />
+
+                    {/* Gloss Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none z-20" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Rank Badge */}
+              <div className="absolute -bottom-2 -right-2 z-20 bg-gradient-to-r from-yellow-600 to-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full border-2 border-white shadow-lg transform rotate-[-5deg] group-hover:rotate-0 transition-transform">
+                VIP
+              </div>
             </div>
 
             <div className="flex-1 text-center md:text-left space-y-4">
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-                  Senior Game Dev
+                <h1 className="text-4xl md:text-5xl font-bold font-serif text-slate-100 mb-2">
+                  <span className="text-gold gold-shimmer block">Senior Game Developer</span>
+                  <span className="text-2xl md:text-3xl text-slate-400 font-sans font-normal opacity-80 block mt-1">
+                    Yusuf Bektas
+                  </span>
                 </h1>
-                <p className="text-slate-400 text-lg mt-1">Class: Technomancer | Lvl. 5+ (Years Exp)</p>
+                <p className="text-yellow-500/80 text-lg mt-2 font-serif italic border-t border-white/10 pt-2 inline-block">
+                  Role: The House | Status: High Roller (5+ Yrs Exp)
+                </p>
               </div>
 
-              <div className="text-slate-300 leading-relaxed max-w-2xl">
-                With over 5 years of professional experience in the gaming industry, I have contributed to the development of over 40 projects across Android, iOS, and WebGL. My expertise lies in Unity3D and C#, and I am passionate about creating engaging and polished gameplay experiences.
+              <div className="text-slate-200 leading-relaxed max-w-2xl font-light text-lg md:text-xl tracking-wide">
+                With over <span className="text-gold font-bold">5 years</span> of professional experience in the gaming industry, I have contributed to the development of over <span className="text-gold font-bold">40 projects</span> across Android, iOS, and WebGL. My expertise lies in Unity3D and C#, and I am passionate about creating engaging and polished gameplay experiences.
               </div>
 
               {/* Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                <StatBox label="Titles Shipped" value="4+" color="text-green-400" />
-                <StatBox label="Engine" value="Unity3D" color="text-blue-400" />
-                <StatBox label="Language" value="C# / TS" color="text-yellow-400" />
-                <StatBox label="Specialty" value="Gameplay" color="text-red-400" />
+                <StatBox label="Shipped Titles" value="40+" />
+                <StatBox label="Engine" value="Unity3D" />
+                <StatBox label="Language" value="C# / TS" />
+                <StatBox label="Specialty" value="Gameplay" />
               </div>
             </div>
           </div>
@@ -56,11 +83,17 @@ export default function Home() {
   );
 }
 
-function StatBox({ label, value, color }: { label: string, value: string, color: string }) {
+function StatBox({ label, value }: { label: string, value: string }) {
   return (
-    <div className="bg-slate-950/50 p-3 rounded-lg border border-slate-800 flex flex-col items-center justify-center hover:border-indigo-500/50 transition-colors">
-      <div className={`text-xl font-bold ${color}`}>{value}</div>
-      <div className="text-xs text-slate-500 uppercase tracking-wider">{label}</div>
+    <div className="bg-black/40 p-1 rounded border border-yellow-500/20 flex flex-col items-center justify-center transition-all hover:border-gold group relative overflow-hidden">
+      {/* Simple Casino Plaque Look */}
+      <div className="w-full h-full bg-gradient-to-b from-slate-900 to-black p-3 flex flex-col items-center justify-center rounded-[2px] relative z-10">
+        <div className="text-gold font-serif font-bold text-lg group-hover:scale-110 transition-transform">{value}</div>
+        <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-1">{label}</div>
+      </div>
+
+      {/* Table Felt Highlight */}
+      <div className="absolute inset-0 bg-green-900/10 z-0" />
     </div>
   )
 }

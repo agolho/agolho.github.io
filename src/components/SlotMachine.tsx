@@ -5,9 +5,14 @@ import confetti from "canvas-confetti";
 import BackgroundMusic from "./BackgroundMusic";
 import BonusGameModal from "./BonusGameModal";
 import CoinRain from "./CoinRain";
+import GoldLiquidShader from "./GoldLiquidShader";
+import { spinReel } from "../utils/slotAlgorithm";
+import ProbabilityAccordion from "./ProbabilityAccordion";
 
-const SYMBOLS = ["💎", "🍀", "🍋", "🍒", "🔔", "👑"];
+const SYMBOLS = ["🍒", "🍋", "🍉", "💎", "🍀"];
 const WINNING_SYMBOL = "💎";
+
+type ReelState = 'stopped' | 'spinning' | 'braking';
 
 // Sound Helper
 const playSound = (type: 'stop' | 'anticipation' | 'win') => {
@@ -43,8 +48,8 @@ const playSound = (type: 'stop' | 'anticipation' | 'win') => {
 };
 
 export default function SlotMachine() {
-    const [results, setResults] = useState<number[]>([0, 1, 2]); // Indices of SYMBOLS
-    const [spinning, setSpinning] = useState([false, false, false]);
+    const [results, setResults] = useState<number[]>([0, 1, 2]);
+    const [reelStates, setReelStates] = useState<ReelState[]>(['stopped', 'stopped', 'stopped']);
     const [isWon, setIsWon] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [isAnticipating, setIsAnticipating] = useState(false);
@@ -130,75 +135,95 @@ export default function SlotMachine() {
     };
 
     const spin = () => {
-        if (spinning.some(s => s)) return;
+        if (reelStates.some(s => s !== 'stopped')) return;
 
         // Start all spinning
-        setSpinning([true, true, true]);
+        setReelStates(['spinning', 'spinning', 'spinning']);
         setIsWon(false);
         setShowBonusModal(false);
         setIsAnticipating(false);
 
-        // Determine results ahead of time
+        // Determine results using weighted algorithm
         const newResults = [
-            Math.floor(Math.random() * SYMBOLS.length),
-            Math.floor(Math.random() * SYMBOLS.length),
-            Math.floor(Math.random() * SYMBOLS.length)
+            spinReel(),
+            spinReel(),
+            spinReel()
         ];
 
-        // Force win logic (keeping the demo 20% chance or higher for Bonus Mode?)
-        // Force win for demo purposes (20% chance) OR if cheat activated
-        if (Math.random() < 0.2 || forceWinRef.current) {
-            newResults[0] = 0; newResults[1] = 0; newResults[2] = 0;
-            // Reset cheat after use
-            if (forceWinRef.current) forceWinRef.current = false;
+        const winningIndex = SYMBOLS.indexOf(WINNING_SYMBOL);
+
+        // Debug/Cheat force win logic (kept for ease of testing)
+        if (forceWinRef.current) {
+            newResults[0] = winningIndex; newResults[1] = winningIndex; newResults[2] = winningIndex;
+            forceWinRef.current = false;
         }
 
-        // Detect anticipation (Reel 1 & 2 are Diamonds)
-        // Note: SYMBOLS[0] is Diamond ("💎")
-        const willAnticipate = newResults[0] === 0 && newResults[1] === 0;
+        // Detect anticipation (Reel 1 & 2 are Winning Symbols)
+        const willAnticipate = newResults[0] === winningIndex && newResults[1] === winningIndex;
 
-        // Stop Reel 1
+        // TIMING CONFIGURATION
+        const reel1Brake = 1000;
+        const brakeDuration = 300;
+
+        const reel2Brake = 1500;
+        const reel3Brake = willAnticipate ? 4000 : 2000;
+
+        // --- REEL 1 SEQUENCE ---
+        setTimeout(() => {
+            setReelStates(prev => ['braking', prev[1], prev[2]]);
+        }, reel1Brake);
+
         setTimeout(() => {
             setResults(prev => [newResults[0], prev[1], prev[2]]);
-            setSpinning(prev => [false, true, true]);
+            setReelStates(prev => ['stopped', prev[1], prev[2]]);
             playSound('stop');
-        }, 1000);
+        }, reel1Brake + brakeDuration);
 
-        // Stop Reel 2
+        // --- REEL 2 SEQUENCE ---
+        setTimeout(() => {
+            setReelStates(prev => [prev[0], 'braking', prev[2]]);
+        }, reel2Brake);
+
         setTimeout(() => {
             setResults(prev => [newResults[0], newResults[1], prev[2]]);
-            setSpinning(prev => [false, false, true]);
+            setReelStates(prev => [prev[0], 'stopped', prev[2]]);
             playSound('stop');
 
             if (willAnticipate) {
                 setIsAnticipating(true);
                 playSound('anticipation');
             }
-        }, 1500);
+        }, reel2Brake + brakeDuration);
 
-        // Stop Reel 3
-        const reel3Delay = willAnticipate ? 4000 : 2000;
+        // --- REEL 3 SEQUENCE ---
         setTimeout(() => {
-            // Reset anticipation
-            setIsAnticipating(false);
+            setReelStates(prev => [prev[0], prev[1], 'braking']);
+            // If anticipating, we stop the anticipation sound/effect slightly before the stop? 
+            // Or keep it running until hard stop?
+            // Usually anticipation keeps pure tension until the brake/stop.
+            if (willAnticipate) {
+                setIsAnticipating(false); // Stop the "fast" anticipation visual, switch to braking
+            }
+        }, reel3Brake);
 
+        setTimeout(() => {
             // Reset bonus mode if it was active (one-time bonus)
             if (isBonusMode) {
                 setIsBonusMode(false);
             }
 
             setResults(newResults);
-            setSpinning([false, false, false]);
+            setReelStates(['stopped', 'stopped', 'stopped']);
             playSound('stop');
 
             // Check win
-            if (newResults[0] === newResults[1] && newResults[1] === newResults[2] && newResults[0] === 0) {
+            if (newResults[0] === newResults[1] && newResults[1] === newResults[2] && newResults[0] === winningIndex) {
                 setIsWon(true);
                 setIsBonusMode(true); // Win triggers bonus mode too!
                 triggerConfetti();
                 setTimeout(() => setShowBonusModal(true), 1000); // Delay modal slightly
             }
-        }, reel3Delay);
+        }, reel3Brake + brakeDuration);
     };
 
 
@@ -211,39 +236,73 @@ export default function SlotMachine() {
 
             {/* Minimalist Reels Container */}
             <div
-                className={`w-full relative group bg-slate-900/40 rounded-2xl backdrop-blur-sm border border-slate-800/50 shadow-2xl overflow-hidden transition-all duration-500 ${isBonusMode ? 'border-yellow-500/50 shadow-yellow-500/20' : ''}`}
+                className={`w-full relative group liquid-glass overflow-hidden transition-all duration-500 border-yellow-500/30 shadow-2xl ${isBonusMode ? 'border-yellow-500/50 shadow-yellow-500/40' : ''}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
+                {/* Gold Liquid Shader Background */}
+                <div className="absolute inset-0 z-0">
+                    <GoldLiquidShader />
+                    {/* Dark overlay to ensure text/reels contrast */}
+                    <div className="absolute inset-0 bg-black/60 z-10" />
+                </div>
+
                 {/* Instruction Label */}
-                <div className={`absolute top-3 left-4 z-10 text-xs font-mono tracking-widest uppercase opacity-70 ${isBonusMode ? 'text-yellow-400' : 'text-slate-500'}`}>
+                <div className={`absolute top-3 left-4 z-20 text-xs font-mono tracking-widest uppercase opacity-90 font-bold bg-black/40 px-3 py-1 rounded-full border border-white/10 ${isBonusMode ? 'text-yellow-400' : 'text-slate-300'}`}>
                     {isBonusMode ? "BONUS MODE ACTIVE" : "Match 3 💎 to Unlock"}
                 </div>
 
-                <div className="flex justify-around p-8 md:p-12 gap-2 md:gap-4">
+                {/* Probability Info - Top Right */}
+                <div className="absolute top-3 right-4 z-40">
+                    <ProbabilityAccordion />
+                </div>
+
+                {/* Reels Container - Height matched to 3x Item Height for perfect centering */}
+                {/* Mobile: 3 * h-24 (6rem) = 18rem (h-72) */}
+                {/* Desktop: 3 * h-32 (8rem) = 24rem (h-96) */}
+                <div className="flex justify-around gap-2 md:gap-4 relative z-20 h-72 md:h-96 items-stretch px-8 md:px-12 my-8">
+                    {/* Payline Frame - Arrows Only - Centered */}
+                    <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-24 z-30 pointer-events-none">
+                        {/* Left Arrow */}
+                        <div className={`absolute left-2 top-1/2 -translate-y-1/2 text-5xl md:text-6xl transition-all duration-300 ${isWon ? 'text-yellow-400 animate-pulse drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] scale-110' : 'text-slate-700/80'}`}>▶</div>
+                        {/* Right Arrow */}
+                        <div className={`absolute right-2 top-1/2 -translate-y-1/2 text-5xl md:text-6xl transition-all duration-300 ${isWon ? 'text-yellow-400 animate-pulse drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] scale-110' : 'text-slate-700/80'}`}>◀</div>
+                    </div>
+
                     {results.map((resultIndex, i) => (
                         <Reel
                             key={i}
                             symbolIndex={resultIndex}
-                            isSpinning={spinning[i]}
+                            state={reelStates[i]}
                             isAnticipating={isAnticipating && i === 2}
                         />
                     ))}
                 </div>
 
                 {/* Spin Button - Floating at 6 o'clock position */}
-                <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-20 transition-all duration-300 ${spinning.some(s => s) ? 'opacity-0 pointer-events-none scale-95' : 'opacity-90 hover:opacity-100 scale-100'}`}>
-                    <button
-                        onClick={spin}
-                        disabled={spinning.some(s => s)}
-                        className={`px-10 py-3 rounded-full font-bold shadow-lg  hover:scale-105 active:scale-95 transition-all text-sm tracking-widest uppercase disabled:opacity-50 disabled:cursor-not-allowed border backdrop-blur-md ${isBonusMode ? 'bg-yellow-500 text-black shadow-yellow-500/30 border-yellow-400/30 hover:bg-yellow-400' : 'bg-indigo-600 text-white shadow-indigo-500/30 border-indigo-400/30 hover:bg-indigo-500'}`}
-                    >
-                        {isBonusMode ? "SPIN BONUS" : "SPIN"}
-                    </button>
+                <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-30 transition-all duration-300 ${reelStates.some(s => s !== 'stopped') ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 hover:scale-110 scale-100'}`}>
+                    {/* Rotating Shine Container */}
+                    <div className="relative p-[3px] rounded-full overflow-hidden group/btn">
+                        {/* Spinning Conic Gradient - Always Visible */}
+                        <div className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] animate-spin-slow opacity-70 group-hover/btn:opacity-100 transition-opacity duration-500" />
+
+                        <button
+                            onClick={spin}
+                            disabled={reelStates.some(s => s !== 'stopped')}
+                            className={`relative px-12 py-4 rounded-full font-bold shadow-2xl hover:shadow-[0_0_40px_rgba(255,215,0,0.6)] active:scale-95 transition-all text-base tracking-[0.2em] uppercase disabled:opacity-50 disabled:cursor-not-allowed border backdrop-blur-md overflow-hidden ${isBonusMode ? 'bg-yellow-500 text-black border-yellow-400' : 'bg-gradient-to-r from-red-700 to-red-600 text-white border-red-500'}`}
+                        >
+                            {/* Glass Sheen */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                            <span className="relative z-10 flex items-center gap-2">
+                                {isBonusMode ? "SPIN BONUS" : "SPIN"}
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            {/* Text result - Hidden when modal is active, but kept for fallback/transition */}
             {!showBonusModal && isWon && (
                 <div className="text-center animate-fade-in text-yellow-400 mt-4">
                     <p className="tracking-widest uppercase">Select your prize above</p>
@@ -253,31 +312,72 @@ export default function SlotMachine() {
     );
 }
 
-function Reel({ symbolIndex, isSpinning, isAnticipating = false }: { symbolIndex: number, isSpinning: boolean, isAnticipating?: boolean }) {
-    // We duplicate the symbols list to create a seamless loop for the animation
-    const strip = [...SYMBOLS, ...SYMBOLS];
+function Reel({ symbolIndex, state, isAnticipating = false }: { symbolIndex: number, state: ReelState, isAnticipating?: boolean }) {
+    // 3 Sets of symbols to ensure we always have neighbors for the 3-row view
+    const strip = [...SYMBOLS, ...SYMBOLS, ...SYMBOLS];
+
+    // Target the middle set (index + length)
+    const targetIndex = symbolIndex + SYMBOLS.length;
+
+    // Animation Logic
+    const isSpinning = state === 'spinning';
+    const isBraking = state === 'braking';
+    const isMoving = isSpinning || isBraking;
+
+    // Determine Animation Class
+    let animationClass = "transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1.2)]"; // Default stopped
+    if (isSpinning) animationClass = "animate-spin-scroll";
+    if (isBraking) animationClass = "animate-spin-braking";
 
     return (
-        // Increased height and width for "Bigger" request
-        <div className={`w-1/3 h-48 md:h-64 bg-slate-950/50 rounded-xl overflow-hidden relative border border-slate-800/50 shadow-inner transition-all duration-300 ${isAnticipating ? 'shadow-[0_0_30px_rgba(255,215,0,0.4)] border-yellow-500/50' : ''}`}>
+        // Container Full Height
+        // Removed Mask Gradient so edges are visible ("Recessed Look")
+        <div className={`w-1/3 h-full bg-slate-900 rounded-lg overflow-hidden relative border-x border-slate-700/50 shadow-[inset_0_0_40px_rgba(0,0,0,0.9)] transition-all duration-300 ${isAnticipating ? 'shadow-[0_0_30px_rgba(255,215,0,0.4)] border-yellow-500/50' : ''}`}>
+
+            {/* Top Shine/Shadow for Curve - Opaque Black Fade */}
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none" />
+
             <div
-                className={`flex flex-col items-center w-full will-change-transform ${isSpinning ? "animate-spin-scroll blur-[2px]" : "transition-transform duration-100"}`}
+                className={`flex flex-col items-center w-full will-change-transform ${animationClass}`}
                 style={{
-                    // FIX: shift by (index / total_items)% to move exactly one item height.
-                    transform: isSpinning ? undefined : `translateY(calc(-${symbolIndex} * (100% / ${strip.length})))`,
+                    // Shift to target, then shift down 1 unit (100% / strip-length) to center it
+                    transform: isMoving ? undefined : `translateY(calc(-${targetIndex} * (100% / ${strip.length}) + (100% / ${strip.length})))`,
                     animationDuration: isAnticipating ? '0.08s' : undefined
                 }}
             >
-                {strip.map((char, i) => (
-                    // Height must match container height (100%)
-                    <div key={i} className="h-48 md:h-64 w-full flex items-center justify-center text-6xl md:text-8xl select-none shrink-0">
-                        {char}
-                    </div>
-                ))}
+                {strip.map((char, i) => {
+                    // Dynamic Sizing Logic for "Fisheye" effect
+                    const isWinner = !isMoving && i === targetIndex;
+                    const isNeighbor = !isMoving && Math.abs(i - targetIndex) === 1;
+
+                    // Blur Logic
+                    let blurClass = 'opacity-80 blur-[1px]'; // Standard spin blur
+                    if (isBraking) blurClass = 'opacity-90 blur-[0.5px]'; // Less blur while braking
+                    if (isAnticipating) blurClass = 'opacity-70 blur-[2px]'; // Super fast blur
+
+                    return (
+                        // Item Height relative to container. 
+                        <div
+                            key={i}
+                            className={`h-24 md:h-32 w-full flex items-center justify-center select-none shrink-0 transition-all duration-300
+                                ${isMoving
+                                    ? `text-6xl md:text-8xl ${blurClass}`
+                                    : isWinner
+                                        ? 'text-8xl md:text-9xl text-yellow-400 drop-shadow-[0_0_20px_rgba(255,215,0,0.5)] scale-110 z-10 opacity-100'
+                                        : isNeighbor
+                                            ? 'text-4xl md:text-6xl opacity-30 blur-[2px] scale-75'
+                                            : 'text-6xl md:text-8xl opacity-80 blur-[1px]'
+                                }
+                            `}
+                        >
+                            {char}
+                        </div>
+                    );
+                })}
             </div>
 
-            {/* Stronger overlay Gradient for depth */}
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/80 pointer-events-none z-10" />
+            {/* Bottom Shine/Shadow for Curve - Opaque Black Fade */}
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
         </div>
     )
 }
