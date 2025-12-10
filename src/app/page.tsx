@@ -40,30 +40,30 @@ export default function Home() {
 
               {/* Floating Rank Badge */}
               <div className="absolute -bottom-2 -right-2 z-20 bg-gradient-to-r from-yellow-600 to-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full border-2 border-white shadow-lg transform rotate-[-5deg] group-hover:rotate-0 transition-transform">
-                VIP
+                DEV
               </div>
             </div>
 
             <div className="flex-1 text-center md:text-left space-y-4">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold font-serif text-slate-100 mb-2">
-                  <span className="text-gold gold-shimmer block">Senior Game Developer</span>
+                  <span className="text-gold gold-shimmer block">Senior Gameplay Engineer</span>
                   <span className="text-2xl md:text-3xl text-slate-400 font-sans font-normal opacity-80 block mt-1">
                     Yusuf Bektas
                   </span>
                 </h1>
                 <p className="text-yellow-500/80 text-lg mt-2 font-serif italic border-t border-white/10 pt-2 inline-block">
-                  Role: The House | Status: High Roller (5+ Yrs Exp)
+                  Role: The House | Status: High Roller (12+ Shipped Titles)
                 </p>
               </div>
 
               <div className="text-slate-200 leading-relaxed max-w-2xl font-light text-lg md:text-xl tracking-wide">
-                With over <span className="text-gold font-bold">5 years</span> of professional experience in the gaming industry, I have contributed to the development of over <span className="text-gold font-bold">40 projects</span> across Android, iOS, and WebGL. My expertise lies in Unity3D and C#, and I am passionate about creating engaging and polished gameplay experiences.
+                Specialized in <span className="text-gold font-bold">Deterministic State Systems</span> & <span className="text-gold font-bold">Session Recall</span> across Mobile, WebGL, & <span className="text-gold font-bold">Physical Slot Cabinets</span>.
               </div>
 
               {/* Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                <StatBox label="Shipped Titles" value="40+" />
+                <StatBox label="Shipped Titles" value="12+" />
                 <StatBox label="Engine" value="Unity3D" />
                 <StatBox label="Language" value="C# / TS" />
                 <StatBox label="Specialty" value="Gameplay" />

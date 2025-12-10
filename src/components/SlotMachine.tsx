@@ -260,13 +260,13 @@ export default function SlotMachine() {
                 {/* Reels Container - Height matched to 3x Item Height for perfect centering */}
                 {/* Mobile: 3 * h-24 (6rem) = 18rem (h-72) */}
                 {/* Desktop: 3 * h-32 (8rem) = 24rem (h-96) */}
-                <div className="flex justify-around gap-2 md:gap-4 relative z-20 h-72 md:h-96 items-stretch px-8 md:px-12 my-8">
+                <div className="flex justify-around gap-1 sm:gap-4 relative z-20 h-72 md:h-96 items-stretch px-2 sm:px-12 my-8">
                     {/* Payline Frame - Arrows Only - Centered */}
                     <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-24 z-30 pointer-events-none">
                         {/* Left Arrow */}
-                        <div className={`absolute left-2 top-1/2 -translate-y-1/2 text-5xl md:text-6xl transition-all duration-300 ${isWon ? 'text-yellow-400 animate-pulse drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] scale-110' : 'text-slate-700/80'}`}>▶</div>
+                        <div className={`absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 text-2xl sm:text-5xl md:text-6xl transition-all duration-300 ${isWon ? 'text-yellow-400 animate-pulse drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] scale-110' : 'text-slate-700/80'}`}>▶</div>
                         {/* Right Arrow */}
-                        <div className={`absolute right-2 top-1/2 -translate-y-1/2 text-5xl md:text-6xl transition-all duration-300 ${isWon ? 'text-yellow-400 animate-pulse drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] scale-110' : 'text-slate-700/80'}`}>◀</div>
+                        <div className={`absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 text-2xl sm:text-5xl md:text-6xl transition-all duration-300 ${isWon ? 'text-yellow-400 animate-pulse drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] scale-110' : 'text-slate-700/80'}`}>◀</div>
                     </div>
 
                     {results.map((resultIndex, i) => (
@@ -361,12 +361,12 @@ function Reel({ symbolIndex, state, isAnticipating = false }: { symbolIndex: num
                             key={i}
                             className={`h-24 md:h-32 w-full flex items-center justify-center select-none shrink-0 transition-all duration-300
                                 ${isMoving
-                                    ? `text-6xl md:text-8xl ${blurClass}`
+                                    ? `text-5xl sm:text-6xl md:text-8xl ${blurClass}`
                                     : isWinner
-                                        ? 'text-8xl md:text-9xl text-yellow-400 drop-shadow-[0_0_20px_rgba(255,215,0,0.5)] scale-110 z-10 opacity-100'
+                                        ? 'text-7xl sm:text-8xl md:text-9xl text-yellow-400 drop-shadow-[0_0_20px_rgba(255,215,0,0.5)] scale-110 z-10 opacity-100'
                                         : isNeighbor
-                                            ? 'text-4xl md:text-6xl opacity-30 blur-[2px] scale-75'
-                                            : 'text-6xl md:text-8xl opacity-80 blur-[1px]'
+                                            ? 'text-3xl sm:text-4xl md:text-6xl opacity-30 blur-[2px] scale-75'
+                                            : 'text-5xl sm:text-6xl md:text-8xl opacity-80 blur-[1px]'
                                 }
                             `}
                         >
