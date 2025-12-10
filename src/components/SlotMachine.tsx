@@ -337,8 +337,8 @@ function Reel({ symbolIndex, state, isAnticipating = false }: { symbolIndex: num
 
     // Determine Animation Class
     let animationClass = "transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1.2)]"; // Default stopped
-    if (isSpinning) animationClass = "animate-spin-scroll";
-    if (isBraking) animationClass = "animate-spin-braking";
+    if (isSpinning) animationClass = "animate-spin-scroll blur-[2px]"; // Added blur(2px) for speed feel
+    if (isBraking) animationClass = "animate-spin-braking blur-[1px]";
 
     return (
         // Container Full Height
@@ -361,18 +361,13 @@ function Reel({ symbolIndex, state, isAnticipating = false }: { symbolIndex: num
                     const isWinner = !isMoving && i === targetIndex;
                     const isNeighbor = !isMoving && Math.abs(i - targetIndex) === 1;
 
-                    // Blur Logic
-                    let blurClass = 'opacity-80 blur-[1px]'; // Standard spin blur
-                    if (isBraking) blurClass = 'opacity-90 blur-[0.5px]'; // Less blur while braking
-                    if (isAnticipating) blurClass = 'opacity-70 blur-[2px]'; // Super fast blur
-
                     return (
                         // Item Height relative to container. 
                         <div
                             key={i}
                             className={`h-24 md:h-32 w-full flex items-center justify-center select-none shrink-0 transition-all duration-300
                                 ${isMoving
-                                    ? `text-5xl sm:text-6xl md:text-8xl ${blurClass}`
+                                    ? `text-5xl sm:text-6xl md:text-8xl opacity-80` // Removed per-item blur
                                     : isWinner
                                         ? 'text-7xl sm:text-8xl md:text-9xl text-yellow-400 drop-shadow-[0_0_20px_rgba(255,215,0,0.5)] scale-110 z-10 opacity-100'
                                         : isNeighbor

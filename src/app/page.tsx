@@ -1,4 +1,6 @@
 import QuestLog from "@/components/QuestLog";
+import DebugProfile from "@/components/DebugProfile";
+import JackpotFooter from "@/components/JackpotFooter";
 import Contact from "@/components/Contact";
 import SlotMachine from "@/components/SlotMachine";
 import Inventory from "@/components/Inventory";
@@ -20,29 +22,8 @@ export default function Home() {
           <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
             {/* Avatar / Class Icon Placeholder */}
             {/* Avatar / Class Icon Placeholder */}
-            <div className="relative group">
-              {/* Spinning 'Sha Sha' Glow Ring */}
-              <div className="absolute inset-[-10px] rounded-full bg-gradient-to-tr from-yellow-400 via-yellow-200 to-yellow-600 opacity-70 blur-md animate-spin-slow group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Static Gold Rim Container */}
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full p-[4px] bg-gradient-to-b from-yellow-200 via-yellow-500 to-yellow-700 shadow-[0_0_50px_rgba(234,179,8,0.6)] relative z-10">
-                {/* Inner Dark Rim */}
-                <div className="w-full h-full rounded-full p-[4px] bg-black">
-                  {/* Dashed Chip Pattern */}
-                  <div className="w-full h-full rounded-full border-2 border-dashed border-yellow-500/50 flex items-center justify-center overflow-hidden bg-slate-900 relative">
-                    <img src="/avatarCasino.png" alt="Avatar" className="w-full h-full object-cover relative z-10 hover:scale-110 transition-transform duration-500" />
-
-                    {/* Gloss Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none z-20" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Rank Badge */}
-              <div className="absolute -bottom-2 -right-2 z-20 bg-gradient-to-r from-yellow-600 to-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full border-2 border-white shadow-lg transform rotate-[-5deg] group-hover:rotate-0 transition-transform">
-                DEV
-              </div>
-            </div>
+            {/* Avatar / Class Icon Placeholder */}
+            <DebugProfile />
 
             <div className="flex-1 text-center md:text-left space-y-4">
               <div>
@@ -78,6 +59,7 @@ export default function Home() {
 
         <QuestLog />
         <Contact />
+        <JackpotFooter />
       </div>
     </main>
   );
