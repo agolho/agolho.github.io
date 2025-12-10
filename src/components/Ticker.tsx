@@ -1,6 +1,6 @@
 export default function Ticker() {
     return (
-        <div className="w-full bg-black border-y border-yellow-500/30 overflow-hidden py-2 relative z-40 shadow-lg">
+        <div className="w-full bg-black border-y border-yellow-500/30 overflow-hidden py-2 relative z-40 shadow-lg no-print">
             <div className="flex animate-scroll-left whitespace-nowrap">
                 <TickerContent />
                 <TickerContent />

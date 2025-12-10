@@ -260,7 +260,7 @@ export default function SlotMachine() {
                 {/* Reels Container - Height matched to 3x Item Height for perfect centering */}
                 {/* Mobile: 3 * h-24 (6rem) = 18rem (h-72) */}
                 {/* Desktop: 3 * h-32 (8rem) = 24rem (h-96) */}
-                <div className="flex justify-around gap-1 sm:gap-4 relative z-20 h-72 md:h-96 items-stretch px-2 sm:px-12 my-8">
+                <div className="flex justify-around gap-1 sm:gap-4 relative z-20 h-72 md:h-96 items-stretch px-2 sm:px-12 my-8 no-print">
                     {/* Payline Frame - Arrows Only - Centered */}
                     <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-24 z-30 pointer-events-none">
                         {/* Left Arrow */}
@@ -280,7 +280,7 @@ export default function SlotMachine() {
                 </div>
 
                 {/* Spin Button - Floating at 6 o'clock position */}
-                <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-30 transition-all duration-300 ${reelStates.some(s => s !== 'stopped') ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 hover:scale-110 scale-100'}`}>
+                <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-30 transition-all duration-300 no-print ${reelStates.some(s => s !== 'stopped') ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 hover:scale-110 scale-100'}`}>
                     {/* Rotating Shine Container */}
                     <div className="relative p-[3px] rounded-full overflow-hidden group/btn">
                         {/* Spinning Conic Gradient - Always Visible */}
@@ -304,10 +304,21 @@ export default function SlotMachine() {
             </div>
 
             {!showBonusModal && isWon && (
-                <div className="text-center animate-fade-in text-yellow-400 mt-4">
+                <div className="text-center animate-fade-in text-yellow-400 mt-4 no-print">
                     <p className="tracking-widest uppercase">Select your prize above</p>
                 </div>
             )}
+
+            {/* PRINT ONLY: QR Code Replacement */}
+            <div className="hidden print:flex flex-col items-center justify-center p-8 border-2 border-black rounded-xl mt-4">
+                <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://agolho.github.io"
+                    alt="Scan to try the Slot Machine"
+                    className="w-32 h-32 mb-2"
+                />
+                <p className="text-black font-bold text-center font-mono">SCAN TO PLAY</p>
+                <p className="text-black/60 text-xs text-center">agolho.github.io</p>
+            </div>
         </section>
     );
 }

@@ -174,3 +174,68 @@ body.bonus-mode .bg-slate-950\/50 {
   /* Heavy vignette */
   border-radius: 1rem;
 }
+
+@media print {
+
+  /* Global Resets */
+  body,
+  html {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide Backgrounds & Effects */
+  .liquid-glass,
+  .bg-slate-900,
+  .bg-black,
+  video,
+  canvas,
+  .fixed {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    position: static !important;
+  }
+
+  /* Specific Hides */
+  .no-print,
+  button:not(.print-visible),
+  /* Hide all buttons unless marked */
+  .animate-spin-slow,
+  /* Hide animations */
+  .gold-shimmer,
+  nav,
+  /* Assuming there is a nav, if not, no harm */
+  footer,
+  .ticker-wrap,
+  /* Hide scrolling ticker */
+  video
+
+  /* Hide background video/shader */
+    {
+    display: none !important;
+  }
+
+  /* Text Contrast */
+  h1,
+  h2,
+  h3,
+  p,
+  span,
+  div {
+    color: black !important;
+    text-shadow: none !important;
+  }
+
+  .text-gold,
+  .text-slate-300,
+  .text-slate-400,
+  .text-yellow-400 {
+    color: black !important;
+    background: none !important;
+    -webkit-text-fill-color: black !important;
+  }
+}

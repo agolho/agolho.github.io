@@ -7,7 +7,7 @@ import ShaderBackground from "@/components/ShaderBackground";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center w-full min-h-screen pb-24 relative overflow-x-hidden">
+    <main className="flex flex-col items-center w-full min-h-screen pb-24 relative overflow-x-hidden print:block print:min-h-0 print:pb-0">
       <ShaderBackground />
       <Ticker />
 

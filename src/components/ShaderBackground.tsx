@@ -138,7 +138,7 @@ export default function ShaderBackground() {
     return (
         <div
             ref={containerRef}
-            className="fixed inset-0 -z-10 pointer-events-none"
+            className="fixed inset-0 -z-10 pointer-events-none no-print"
             style={{ isolation: 'isolate' }}
         />
     );
