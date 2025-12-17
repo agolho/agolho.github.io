@@ -21,6 +21,15 @@ export default function QuestLog() {
 
             <div className="grid gap-4">
                 <BettingSlip
+                    title="Lignin"
+                    desc="Prototype game - featured in popular feeds"
+                    odds="1 : 1"
+                    payout="CREATIVE FUN"
+                    status="LIVE"
+                    link="https://lightwhite.itch.io/lignin"
+                    type="Win"
+                />
+                <BettingSlip
                     title="Baker's Calculator"
                     desc="Bread recipe hydration engine"
                     odds="1 : 1"
