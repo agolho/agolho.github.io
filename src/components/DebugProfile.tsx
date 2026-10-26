@@ -51,7 +51,20 @@ export default function DebugProfile() {
     }, []);
 
     return (
-        <div className="relative group cursor-pointer z-50" onClick={toggleDebug}>
+        <div
+            className="relative group cursor-pointer z-50 rounded-full"
+            onClick={toggleDebug}
+            onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleDebug();
+                }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-pressed={isOpen}
+            aria-label="Toggle developer debug log"
+        >
             {/* Spinning 'Sha Sha' Glow Ring */}
             <div className={`absolute inset-[-10px] rounded-full bg-gradient-to-tr from-yellow-400 via-yellow-200 to-yellow-600 blur-md transition-opacity duration-500 ${isOpen ? 'opacity-100 animate-spin-fast' : 'opacity-70 animate-spin-slow group-hover:opacity-100'}`} />
 
@@ -63,7 +76,7 @@ export default function DebugProfile() {
                     <div className="w-full h-full rounded-full border-2 border-dashed border-yellow-500/50 flex items-center justify-center overflow-hidden bg-slate-900 relative">
                         <img
                             src="/avatarCasino.png"
-                            alt="Avatar"
+                            alt="Yusuf Bektas"
                             className={`w-full h-full object-cover relative z-10 transition-transform duration-500 ${isOpen ? 'scale-90 grayscale' : 'hover:scale-110'}`}
                         />
 
@@ -90,7 +103,7 @@ export default function DebugProfile() {
 
             {/* System Log Overlay */}
             {isOpen && (
-                <div className="absolute top-0 left-full ml-4 w-64 md:w-80 bg-black/90 border border-green-500/50 rounded p-4 shadow-[0_0_20px_rgba(34,197,94,0.2)] backdrop-blur-sm z-40 animate-in fade-in slide-in-from-left-4 duration-200">
+                <div aria-live="polite" className="absolute top-full mt-8 left-1/2 -translate-x-1/2 md:top-0 md:mt-0 md:left-full md:ml-4 md:translate-x-0 w-64 md:w-80 bg-black/90 border border-green-500/50 rounded p-4 shadow-[0_0_20px_rgba(34,197,94,0.2)] backdrop-blur-sm z-40 animate-in fade-in slide-in-from-left-4 duration-200">
                     <div className="font-mono text-xs text-green-500 space-y-1 h-32 overflow-hidden flex flex-col justify-end">
                         {logContent.map((line, i) => (
                             <div key={i} className="animate-in fade-in duration-100">{line}</div>

@@ -139,33 +139,43 @@ interface TechCategory {
 
 const ARMORY: TechCategory[] = [
     {
-        title: "Operations",
+        title: "Languages & Engines",
         style: "border-orange-500/30 bg-orange-900/10 text-orange-400",
         tools: [
-            { name: "C#", icon: "👑", desc: "Memory Mgmt & Threading" },
-            { name: "Unity3D", icon: "💎", desc: "DOTS, ECS, Custom Render" },
-            { name: "Visual Studio", icon: "🍋", desc: "Debugging & Profiling" },
-            { name: "Git / Perforce", icon: "🍉", desc: "Version Control at Scale" }
+            { name: "C#", icon: "👑", desc: "Gameplay & Systems Code" },
+            { name: "Unity", icon: "💎", desc: "Mobile, WebGL & Cabinets" },
+            { name: "Swift (Xcode)", icon: "🍋", desc: "Native iOS Bridges" },
+            { name: "Kotlin / Java", icon: "🍉", desc: "Native Android Bridges" }
         ]
     },
     {
-        title: "Architecture",
+        title: "Architecture & SDKs",
         style: "border-blue-500/30 bg-blue-900/10 text-blue-400",
         tools: [
-            { name: "State Machines", icon: "🍒", desc: "Deterministic Logic" },
-            { name: "Command Pattern", icon: "🍇", desc: "Replay Systems" },
-            { name: "Serialization", icon: "🍊", desc: "JSON / Protobuf" },
-            { name: "Addressables", icon: "🍀", desc: "Asset Bundles" }
+            { name: "State Machines", icon: "🍒", desc: "Deterministic Game Recall" },
+            { name: "OOP Patterns", icon: "🍇", desc: "Modular, Scalable Code" },
+            { name: "AppLovin Max", icon: "🍊", desc: "Ad Mediation" },
+            { name: "GameAnalytics / AppsFlyer", icon: "🍀", desc: "Analytics & Attribution" }
         ]
     },
     {
-        title: "R&D Lab",
+        title: "AI & Workflows",
+        style: "border-emerald-500/30 bg-emerald-900/10 text-emerald-400",
+        tools: [
+            { name: "Claude", icon: "💎", desc: "AI-First Development" },
+            { name: "Antigravity", icon: "👑", desc: "Agentic Coding" },
+            { name: "AI-Assisted Coding", icon: "🍒", desc: "Code Gen & Review" },
+            { name: "Rapid Prototyping", icon: "🍋", desc: "Idea to Playable, Fast" }
+        ]
+    },
+    {
+        title: "Web & Web3",
         style: "border-pink-500/30 bg-pink-900/10 text-pink-400",
         tools: [
-            { name: "React", icon: "💎", desc: "UI Experiments" },
-            { name: "TypeScript", icon: "👑", desc: "Type Safety" },
-            { name: "Tailwind", icon: "🍒", desc: "Rapid Styling" },
-            { name: "WebGL", icon: "🍋", desc: "Shaders & FX" }
+            { name: "Next.js", icon: "🍉", desc: "Web Apps (this site)" },
+            { name: "Node.js", icon: "🍀", desc: "Server-side JS" },
+            { name: "Solana", icon: "🍇", desc: "On-chain Programs" },
+            { name: "Solidity", icon: "🍊", desc: "Smart Contracts" }
         ]
     }
 ];
@@ -207,6 +217,16 @@ const THEME_STYLES: Record<string, { rim: string; face: string; accent: string }
 export default function Inventory() {
     const [selectedProject, setSelectedProject] = React.useState<ProjectItem | null>(null);
 
+    // Close the spec modal with Escape
+    React.useEffect(() => {
+        if (!selectedProject) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setSelectedProject(null);
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [selectedProject]);
+
     return (
         <section className="w-full flex flex-col gap-12">
 
@@ -223,7 +243,7 @@ export default function Inventory() {
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6 relative z-10">
+                <div className="grid md:grid-cols-2 gap-6 relative z-10">
                     {ARMORY.map((category, i) => (
                         <div key={i} className={`p-6 rounded-xl border-t-2 ${category.style} relative group overflow-hidden`}>
                             {/* Card Back Pattern Overlay */}
@@ -291,6 +311,9 @@ export default function Inventory() {
                         onClick={() => setSelectedProject(null)}
                     >
                         <div
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="project-modal-title"
                             className={`
                                 w-full max-w-sm relative overflow-hidden rounded-2xl border-2 p-1 shadow-2xl animate-in zoom-in-95 duration-200
                                 border-slate-700
@@ -302,6 +325,8 @@ export default function Inventory() {
                                 {/* Close Button */}
                                 <button
                                     onClick={() => setSelectedProject(null)}
+                                    aria-label="Close"
+                                    autoFocus
                                     className="absolute top-4 right-4 text-slate-500 hover:text-white"
                                 >
                                     ✕
@@ -320,10 +345,10 @@ export default function Inventory() {
                                 </div>
 
                                 <div className="text-xs font-bold uppercase tracking-widest mb-2 text-slate-500">
-                                    {selectedProject.id} // {selectedProject.theme.toUpperCase()}
+                                    {selectedProject.id} {"//"} {selectedProject.theme.toUpperCase()}
                                 </div>
 
-                                <h3 className="text-2xl font-serif font-bold text-white mb-2 decoration-gold underline-offset-4">
+                                <h3 id="project-modal-title" className="text-2xl font-serif font-bold text-white mb-2 decoration-gold underline-offset-4">
                                     {selectedProject.codename}
                                 </h3>
 
@@ -361,9 +386,11 @@ function ProjectChip({ project, onClick }: { project: ProjectItem, onClick: () =
     const style = THEME_STYLES[project.theme];
 
     return (
-        <div
-            className="group relative flex flex-col items-center"
+        <button
+            type="button"
+            className="group relative flex flex-col items-center rounded-lg bonus-exempt print-visible"
             onClick={onClick}
+            aria-label={`${project.codename}: view tech specs`}
         >
             {/* 3D Chip / Cartridge Visual */}
             <div className={`
@@ -405,6 +432,6 @@ function ProjectChip({ project, onClick }: { project: ProjectItem, onClick: () =
                     [ SHIPPED ]
                 </div>
             </div>
-        </div>
+        </button>
     );
 }

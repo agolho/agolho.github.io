@@ -94,9 +94,11 @@ export default function JackpotFooter() {
                             <div className="text-[10px] text-yellow-600 font-mono tracking-widest uppercase z-20">Current Credits</div>
 
                             {/* Fixed Font Size: Matches final text size always */}
-                            <div className="font-mono font-bold text-yellow-400 tracking-wider z-20 animate-pulse drop-shadow-[0_0_8px_rgba(250,204,21,0.5)] text-xs sm:text-sm md:text-base">
+                            {/* Scramble is visual only; screen readers get the final text */}
+                            <div aria-hidden="true" className="font-mono font-bold text-yellow-400 tracking-wider z-20 animate-pulse drop-shadow-[0_0_8px_rgba(250,204,21,0.5)] text-xs sm:text-sm md:text-base">
                                 {displayText}
                             </div>
+                            <span className="sr-only">{FINAL_TEXT}</span>
 
                             {/* Version Info */}
                             <div
@@ -105,7 +107,7 @@ export default function JackpotFooter() {
                                 onMouseLeave={() => setDebugMode(false)}
                                 onClick={() => setDebugMode(prev => !prev)}
                             >
-                                {debugMode ? "Build: Debug | Hash: a1b2c3d" : "v1.4.2 | Build: Production"}
+                                {debugMode ? "Build: Debug | Hash: a1b2c3d" : "v1.5.0 | Build: Production"}
                             </div>
                         </div>
                     </div>

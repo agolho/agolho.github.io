@@ -108,11 +108,14 @@ export default function ShaderBackground() {
         scene.add(mesh);
 
         const startTime = Date.now();
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let animationId: number;
 
         const animate = () => {
-            requestAnimationFrame(animate);
             uniforms.u_time.value = (Date.now() - startTime) * 0.001;
             renderer.render(scene, camera);
+            // Reduced motion: keep the single static frame
+            if (!reduceMotion) animationId = requestAnimationFrame(animate);
         };
 
         animate();
@@ -120,11 +123,13 @@ export default function ShaderBackground() {
         const handleResize = () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+            if (reduceMotion) renderer.render(scene, camera);
         };
 
         window.addEventListener("resize", handleResize);
 
         return () => {
+            cancelAnimationFrame(animationId);
             window.removeEventListener("resize", handleResize);
             if (container.contains(renderer.domElement)) {
                 container.removeChild(renderer.domElement);

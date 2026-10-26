@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 
 export default function BonusGameModal({ onClose }: { onClose: () => void }) {
     const [openedChest, setOpenedChest] = useState<number | null>(null);
+
+    // Close with Escape
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") onClose();
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [onClose]);
 
     const prizes = [
         { label: "My GitHub", link: "https://github.com/agolho" },
@@ -26,9 +35,22 @@ export default function BonusGameModal({ onClose }: { onClose: () => void }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-            <div className={`bg-slate-900 border-2 border-yellow-400 rounded-2xl p-8 max-w-2xl w-full text-center relative shadow-[0_0_50px_rgba(255,215,0,0.3)] ${openedChest === null ? 'animate-pulse-gold' : ''}`}>
+            <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="bonus-modal-title"
+                className={`bg-slate-900 border-2 border-yellow-400 rounded-2xl p-8 max-w-2xl w-full text-center relative shadow-[0_0_50px_rgba(255,215,0,0.3)] ${openedChest === null ? 'animate-pulse-gold' : ''}`}
+            >
+                {/* Always-available exit, so the modal never traps the visitor */}
+                <button
+                    onClick={onClose}
+                    aria-label="Close"
+                    className="bonus-exempt absolute top-4 right-4 w-8 h-8 rounded-full text-yellow-200/60 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                    ✕
+                </button>
 
-                <h2 className="text-3xl md:text-5xl font-bold text-yellow-400 mb-2 uppercase tracking-widest drop-shadow-md">
+                <h2 id="bonus-modal-title" className="text-3xl md:text-5xl font-bold text-yellow-400 mb-2 uppercase tracking-widest drop-shadow-md">
                     {openedChest === null ? "Choose Your Reward" : "You Won!"}
                 </h2>
                 <p className="text-yellow-200/80 mb-8 max-w-md mx-auto">
@@ -42,6 +64,15 @@ export default function BonusGameModal({ onClose }: { onClose: () => void }) {
                         <div
                             key={i}
                             onClick={() => handleChestClick(i)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    handleChestClick(i);
+                                }
+                            }}
+                            role="button"
+                            tabIndex={openedChest === null ? 0 : -1}
+                            aria-label={`Open chest ${i + 1}`}
                             className={`
                                 relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 cursor-pointer transition-all duration-500
                                 ${openedChest === null ? 'hover:scale-110 hover:-translate-y-2' : ''}

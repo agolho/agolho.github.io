@@ -4,6 +4,7 @@ import JackpotFooter from "@/components/JackpotFooter";
 import Contact from "@/components/Contact";
 import SlotMachine from "@/components/SlotMachine";
 import Inventory from "@/components/Inventory";
+import GameRecall from "@/components/GameRecall";
 import Ticker from "@/components/Ticker";
 import ShaderBackground from "@/components/ShaderBackground";
 
@@ -20,40 +21,40 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
           <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
-            {/* Avatar / Class Icon Placeholder */}
-            {/* Avatar / Class Icon Placeholder */}
-            {/* Avatar / Class Icon Placeholder */}
+            {/* Avatar / Class Icon */}
             <DebugProfile />
 
             <div className="flex-1 text-center md:text-left space-y-4">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold font-serif text-slate-100 mb-2">
-                  <span className="text-gold gold-shimmer block">Senior Gameplay Engineer</span>
+                  <span className="text-gold gold-shimmer block">Game Developer</span>
                   <span className="text-2xl md:text-3xl text-slate-400 font-sans font-normal opacity-80 block mt-1">
                     Yusuf Bektas
                   </span>
                 </h1>
                 <p className="text-yellow-500/80 text-lg mt-2 font-serif italic border-t border-white/10 pt-2 inline-block">
-                  Role: The House | Status: High Roller (12+ Shipped Titles)
+                  Role: The House | Status: High Roller (40+ Unity Projects)
                 </p>
               </div>
 
               <div className="text-slate-200 leading-relaxed max-w-2xl font-light text-lg md:text-xl tracking-wide">
-                Specialized in <span className="text-gold font-bold">Deterministic State Systems</span> & <span className="text-gold font-bold">Session Recall</span> across Mobile, WebGL, & <span className="text-gold font-bold">Physical Slot Cabinets</span>.
+                Building <span className="text-gold font-bold">Game Recall</span> & <span className="text-gold font-bold">Compliance Audit</span> systems for <span className="text-gold font-bold">Cabinet Video Slots</span> at Dreidel Interactive, powered by an <span className="text-gold font-bold">AI-First</span> workflow.
               </div>
 
               {/* Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                <StatBox label="Shipped Titles" value="12+" />
-                <StatBox label="Engine" value="Unity3D" />
+                <StatBox label="Unity Projects" value="40+" />
+                <StatBox label="Engine" value="Unity" />
                 <StatBox label="Language" value="C# / TS" />
-                <StatBox label="Specialty" value="Gameplay" />
+                <StatBox label="Workflow" value="AI-First" />
               </div>
             </div>
           </div>
         </section>
 
         <SlotMachine />
+
+        <GameRecall />
 
         <Inventory />
 

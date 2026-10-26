@@ -8,6 +8,7 @@ export default function ProbabilityAccordion() {
         <div className="w-56 border border-white/10 rounded-lg overflow-hidden backdrop-blur-md bg-black/40 shadow-xl transition-all duration-300 hover:border-white/30 group">
             <button
                 onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
                 className="w-full px-3 py-2 flex items-center justify-between text-[10px] font-mono tracking-widest uppercase text-slate-400 group-hover:text-yellow-400 transition-colors"
             >
                 <span>Probabilities</span>

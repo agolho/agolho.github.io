@@ -100,12 +100,14 @@ export default function GoldLiquidShader() {
         scene.add(plane);
 
         const startTime = Date.now();
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         let animationId: number;
 
         const animate = () => {
-            animationId = requestAnimationFrame(animate);
             material.uniforms.time.value = (Date.now() - startTime) * 0.001;
             renderer.render(scene, camera);
+            // Reduced motion: keep the single static frame
+            if (!reduceMotion) animationId = requestAnimationFrame(animate);
         };
 
         animate();
@@ -114,6 +116,7 @@ export default function GoldLiquidShader() {
             if (!containerRef.current) return;
             const { clientWidth, clientHeight } = containerRef.current;
             renderer.setSize(clientWidth, clientHeight);
+            if (reduceMotion) renderer.render(scene, camera);
         };
 
         window.addEventListener("resize", handleResize);
@@ -124,6 +127,7 @@ export default function GoldLiquidShader() {
             container.removeChild(renderer.domElement);
             geometry.dispose();
             material.dispose();
+            renderer.dispose();
         };
     }, []);
 

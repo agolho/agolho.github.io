@@ -80,6 +80,10 @@ body {
   animation: spin 8s linear infinite;
 }
 
+.animate-spin-fast {
+  animation: spin 1.5s linear infinite;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -121,7 +125,7 @@ body.bonus-mode section {
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.2) !important;
 }
 
-body.bonus-mode button {
+body.bonus-mode button:not(.bonus-exempt) {
   background: #FFD700 !important;
   color: #000 !important;
   box-shadow: 0 0 20px #FFD700 !important;
@@ -156,6 +160,32 @@ body.bonus-mode .bg-slate-950\/50 {
 
 .animate-pulse-gold {
   animation: pulse-gold 2s infinite;
+}
+
+/* Keyboard focus ring */
+:focus-visible {
+  outline: 2px solid #facc15;
+  outline-offset: 3px;
+}
+
+/* Respect reduced-motion: stop decorative loops (shaders pause themselves in JS) */
+@media (prefers-reduced-motion: reduce) {
+  .gold-shimmer,
+  .animate-scroll-left,
+  .animate-spin-slow,
+  .animate-spin-fast,
+  .animate-pulse,
+  .animate-bounce,
+  .animate-pulse-gold {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Liquid Glass Aesthetic */

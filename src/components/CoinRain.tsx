@@ -13,7 +13,7 @@ export default function CoinRain() {
         if (!ctx) return;
 
         let animationFrameId: number;
-        let coins: Coin[] = [];
+        const coins: Coin[] = [];
 
         const resize = () => {
             canvas.width = window.innerWidth;
@@ -90,19 +90,9 @@ export default function CoinRain() {
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            coins.forEach((coin, index) => {
+            coins.forEach((coin) => {
                 coin.update();
                 coin.draw();
-
-                // Remove if stopped bouncing or off screen
-                if (coin.y > canvas.height + 100 || (Math.abs(coin.vy) < 0.5 && coin.y >= canvas.height - coin.radius - 1)) {
-                    // Slowly drift them out? Or just keep piling?
-                    // For now let's keep them there or remove them to save perf
-                    // Let's remove them if they stop moving to avoid overcrowding
-                    if (Math.abs(coin.vy) < 0.1) {
-                        // Maybe fade out logic later
-                    }
-                }
             });
 
             animationFrameId = requestAnimationFrame(animate);

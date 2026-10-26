@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Archived pre-Next.js site (includes a minified Unity WebGL build).
+    "legacy_backup/**",
   ]),
 ]);
 

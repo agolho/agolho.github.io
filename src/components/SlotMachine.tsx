@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
 import BackgroundMusic from "./BackgroundMusic";
 import BonusGameModal from "./BonusGameModal";
@@ -14,9 +14,14 @@ const WINNING_SYMBOL = "💎";
 
 type ReelState = 'stopped' | 'spinning' | 'braking';
 
+type SlotWindow = Window & {
+    webkitAudioContext?: typeof AudioContext;
+    winJackpot?: () => string;
+};
+
 // Sound Helper
 const playSound = (type: 'stop' | 'anticipation' | 'win') => {
-    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContext = window.AudioContext || (window as SlotWindow).webkitAudioContext;
     if (!AudioContext) return;
 
     const ctx = new AudioContext();
@@ -25,6 +30,8 @@ const playSound = (type: 'stop' | 'anticipation' | 'win') => {
 
     osc.connect(gain);
     gain.connect(ctx.destination);
+    // Release the context once the sound finishes so spins don't pile up open contexts
+    osc.onended = () => ctx.close();
 
     if (type === 'stop') {
         // Mechanical Click
@@ -51,7 +58,6 @@ export default function SlotMachine() {
     const [results, setResults] = useState<number[]>([0, 1, 2]);
     const [reelStates, setReelStates] = useState<ReelState[]>(['stopped', 'stopped', 'stopped']);
     const [isWon, setIsWon] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
     const [isAnticipating, setIsAnticipating] = useState(false);
 
     // Bonus Mode States
@@ -93,7 +99,7 @@ export default function SlotMachine() {
     // Konami Code & Easter Egg Listener
     useEffect(() => {
         // Expose Cheat Code
-        (window as any).winJackpot = () => {
+        (window as SlotWindow).winJackpot = () => {
             console.log("🎲 RIGGING SLOTS... NEXT SPIN WILL WIN! 🎲");
             forceWinRef.current = true;
             return "Cheat Activated: Spin now!";
@@ -237,8 +243,6 @@ export default function SlotMachine() {
             {/* Minimalist Reels Container */}
             <div
                 className={`w-full relative group liquid-glass overflow-hidden transition-all duration-500 border-yellow-500/30 shadow-2xl ${isBonusMode ? 'border-yellow-500/50 shadow-yellow-500/40' : ''}`}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
             >
                 {/* Gold Liquid Shader Background */}
                 <div className="absolute inset-0 z-0">
@@ -302,6 +306,10 @@ export default function SlotMachine() {
                     </div>
                 </div>
             </div>
+
+            <p className="sr-only" aria-live="polite">
+                {isWon ? "Jackpot! Three diamonds. Choose your reward." : ""}
+            </p>
 
             {!showBonusModal && isWon && (
                 <div className="text-center animate-fade-in text-yellow-400 mt-4 no-print">
